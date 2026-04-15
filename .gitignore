@@ -1,0 +1,20 @@
+# Superpowers brainstorm sessions
+.superpowers/
+
+# Claude Code
+.claude/
+
+# Designer source files (too large for git)
+designer-assets/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Previous project files (not part of Lau Hair site)
+Code.gs
+SETUP-INSTRUCTIONS.md
+command-centre.html
+url for tool command centre.txt
+.superpowers.zip
