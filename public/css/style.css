@@ -922,11 +922,6 @@ p {
   align-items: center;
 }
 
-/* Scope the page-title smaller on stylists (designer: ~48px not 72px) */
-.stylists-intro .page-title {
-  font-size: clamp(2rem, 4vw, 3rem);
-}
-
 .stylists-intro__left {
   /* Text column */
 }
@@ -939,7 +934,7 @@ p {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
-  margin-top: 1.5rem;
+  margin-top: 2.25rem; /* 36px, ~50% deeper than the previous 24px */
 }
 
 .stylists-quote {
@@ -1338,6 +1333,13 @@ p {
 .page-top {
   padding-top: 80px;
   padding-bottom: 10rem;
+}
+
+/* Pages that jump straight into a .section (no dedicated hero element) need
+   extra breathing room below the fixed header. This gives them a gap to the
+   first section that matches salon's hero margin (~82px total). */
+.page-top > .section:first-child {
+  margin-top: 2rem;
 }
 
 /* ============================================
