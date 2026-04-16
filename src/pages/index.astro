@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const BOOKING_URL = 'https://s-iq.co/BookingPortal/dist/?salonid=144ab19c-0032-4459-b79d-126853a7c144&tab=book';
+---
+<BaseLayout
+  title="Lau Hairdressing | Hairdresser in Maidstone, Kent"
+  description="Experience personalized haircare at Lau Hairdressing, Maidstone, Kent. We offer professional advice, top tips to keep your hair looking great all year. Discuss your haircare concerns with us and get a hairstyle that reflects your personality and lifestyle. At Lau Hair, you get the care you deserve"
+  canonical="https://www.lau-hair.com/"
+  headerVariant="dark"
+>
+  <!-- Schema.org LocalBusiness -->
+  <script type="application/ld+json" is:inline slot="head">
+  {
+    "@context": "https://schema.org",
+    "@type": "HairSalon",
+    "name": "Lau Hairdressing",
+    "image": "https://www.lau-hair.com/images/artwork-painting.png",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "13 Gabriel's Hill",
+      "addressLocality": "Maidstone",
+      "addressRegion": "Kent",
+      "postalCode": "ME15 6HL",
+      "addressCountry": "GB"
+    },
+    "telephone": "+441622670557",
+    "url": "https://www.lau-hair.com",
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday",   "opens": "09:30", "closes": "20:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "09:00", "closes": "18:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Thursday",  "opens": "09:00", "closes": "18:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Friday",    "opens": "09:30", "closes": "19:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday",  "opens": "08:00", "closes": "17:00" }
+    ]
+  }
+  </script>
+
+  <!-- HERO -->
+  <section class="hero" role="img" aria-label="Pop art painting on gallery wall">
+    <div class="hero__text-overlay">
+      <img src="/images/depp-soul.png" alt="A haircut is the portrait of the soul" />
+    </div>
+    <div class="hero__cta">
+      <a href={BOOKING_URL} class="btn btn--outline-white" target="_blank" rel="noopener">Book now</a>
+    </div>
+    <div class="hero__signature">
+      <img src="/images/depp-signature.png" alt="Signature" />
+    </div>
+  </section>
+
+  <!-- SEO CONTENT -->
+  <section class="section section--light seo-content">
+    <div class="container">
+      <h2 class="text-center mb-3 seo-content__title">Hair Salon in Maidstone</h2>
+      <p class="text-center text-muted seo-content__text">
+        At Lau Hairdressing, we believe every client deserves a personalised experience from the moment they walk through our doors. As a leading hair salon in Maidstone, our passionate team of expert stylists offers a wide range of services — from creative colouring and modern styling to classic cuts and elegant blow-dries. We take the time to listen, consult, and understand your individual needs, making sure you leave our salon feeling confident and refreshed. With a welcoming atmosphere and a reputation for exceptional results, Lau Hairdressing is proud to be a trusted name for hairdressing in Maidstone. We look forward to welcoming you and making your visit as special as it should be. Thank you, Damon.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

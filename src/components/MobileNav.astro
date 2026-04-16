@@ -1,0 +1,20 @@
+---
+// Mobile nav overlay (sibling of Header). Styled to be hidden on desktop
+// (>1300px) and opened when the dots toggle flips it to .active.
+const navLinks = [
+  { href: '/salon.html',        label: 'Salon' },
+  { href: '/visit.html',        label: 'Booking' },
+  { href: '/stylists.html',     label: 'Stylists' },
+  { href: '/services.html',     label: 'Services' },
+  { href: '/microblading.html', label: 'Microblading' },
+  { href: '/charity.html',      label: 'Charity' },
+  { href: '/contact.html',      label: 'Contact' },
+];
+const PHONE = '01622 670 557';
+---
+<nav class="mobile-nav">
+  {navLinks.map(link => (
+    <a href={link.href}>{link.label}</a>
+  ))}
+  <a href={`tel:${PHONE.replace(/\s/g, '')}`}>Call: {PHONE}</a>
+</nav>

@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const BOOKING_URL = 'https://s-iq.co/BookingPortal/dist/?salonid=144ab19c-0032-4459-b79d-126853a7c144&tab=book';
+const MAPS_URL = 'https://maps.google.com/maps?q=Lau+Hairdressing+Ltd,+Gabriel%27s+Hill,+Maidstone,+United+Kingdom';
+---
+<BaseLayout
+  title="Contact Us | Lau Hairdressing, Maidstone"
+  description="Contact Lau Hairdressing in Maidstone, Kent. Call 01622 670 557 or book online 24/7 via our booking portal. Find us at 13 Gabriel's Hill, Maidstone, ME15 6HL."
+>
+  <section class="page-top">
+    <div class="container">
+      <h1 class="page-title">Contact the Salon</h1>
+      <p class="page-top__subtitle">We're here to help</p>
+    </div>
+  </section>
+
+  <section class="section section--light">
+    <div class="container">
+      <div class="two-col">
+        <div class="location-info">
+          <h2>Get In Touch</h2>
+          <p>The quickest way to arrange your next appointment with Lau in Maidstone is by calling our reception team. If we are unable to answer any phone calls it maybe because we are all cutting hair and looking after our amazing guests or it maybe a day or time when we are closed but we will contact you back as soon as we possibly can.</p>
+          <p><strong>Call now:</strong> <a href="tel:01622670557">01622 670 557</a></p>
+          <p><strong>E-mail</strong> enquiries to <a href="mailto:info@lau-hair.com">info@lau-hair.com</a> please. Again we will endeavour to respond asap.</p>
+          <p>Alternatively if you know what service it is that you require then booking can be made 24/7 via our booking app.</p>
+          <div class="mt-3">
+            <a href={BOOKING_URL} class="btn btn--primary" target="_blank" rel="noopener">Book now</a>
+          </div>
+        </div>
+
+        <div class="location-info">
+          <h2>Our Location</h2>
+          <p>The Lau Hairdressing Salon can be found at the centre of Maidstone, Kent, known as the Garden of England. Located at 13 Gabriel's Hill, only a five minute walk from the Maidstone East train station. The Mall shopping centre car park is also only five minutes away and has 1000 car parking spaces. Two minutes from the salon is the town centre Black Cab Taxi rank to all destinations.</p>
+          <address class="address-block">
+            <strong>Lau Hairdressing Salon</strong><br />
+            13 Gabriel's Hill<br />
+            Maidstone<br />
+            Kent ME15 6HL<br />
+            United Kingdom
+          </address>
+          <p class="what3words mt-2"><strong>what3words:</strong> ///cards.lunch.drill</p>
+          <div class="mt-3">
+            <a href={MAPS_URL} class="btn btn--outline" target="_blank" rel="noopener">Find us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white">
+    <div class="container text-center">
+      <h3>Salon Hours</h3>
+      <table class="hours-table hours-table--center">
+        <tr><td>Monday</td><td>Closed</td></tr>
+        <tr><td>Tuesday</td><td>9:30 - 8pm</td></tr>
+        <tr><td>Wednesday</td><td>9am - 6pm</td></tr>
+        <tr><td>Thursday</td><td>9am - 6pm</td></tr>
+        <tr><td>Friday</td><td>9:30 - 7pm</td></tr>
+        <tr><td>Saturday</td><td>8am - 5pm</td></tr>
+        <tr><td>Sunday</td><td>Closed</td></tr>
+      </table>
+      <div class="btn-group btn-group--center mt-3">
+        <a href={BOOKING_URL} class="btn btn--primary" target="_blank" rel="noopener">Book now</a>
+        <a href={MAPS_URL} class="btn btn--outline" target="_blank" rel="noopener">Find us</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

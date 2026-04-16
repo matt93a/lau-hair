@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const BOOKING_URL = 'https://s-iq.co/BookingPortal/dist/?salonid=144ab19c-0032-4459-b79d-126853a7c144&tab=book';
+const MAPS_URL = 'https://maps.google.com/maps?q=Lau+Hairdressing+Ltd,+Gabriel%27s+Hill,+Maidstone,+United+Kingdom';
+
+const cuts = [
+  ['Ladies Cut & Finish',    '£60'],
+  ['Gents Cut & Finish',     '£43'],
+  ['Standalone Finish',      '£38'],
+  null,
+  ['Under 12 Cut & Finish',  '£28'],
+  ['13 - 15yrs Cut & Finish','25% off Stylist price'],
+];
+
+const colour = [
+  ['Highlights/Lowlights (foils)',  '£105'],
+  ['Balayage',                      '£130'],
+  ['Half-head',                     '£85'],
+  ['Tinting',                       '£65'],
+  ['Toner',                         '£30'],
+  ['Colour-correction',             'PoA'],
+  ['Full Bleach',                   'PoA'],
+  ['Natural Glossing',              '£65'],
+  ['Luxury Perming',                '£90'],
+  ['Brazilian Blow-dry',            '£200'],
+  ['K18 Molecular Repair Treatment',''],
+  ['Olaplex Strengthening Treatment',''],
+  ['Awapuhi Wild Ginger Treatment', '£30 - £40ea'],
+  ['Bespoke Luxury Treatments',     '£15 - £25'],
+  ['Party Hair',                    '£40 / 30mins'],
+];
+---
+<BaseLayout
+  title="Hair Services & Prices | Lau Hairdressing, Maidstone"
+  description="Experience luxury hairdressing at Lau Hairdressing. We offer bespoke homecare plans and professional hair hacks to maintain your style all year round. Our personalized approach ensures a hairstyle that reflects your personality and lifestyle. Enjoy professional care with every visit"
+>
+  <div class="page-top">
+    <!-- INTRO TWO-COL -->
+    <section class="section section--light">
+      <div class="container">
+        <div class="two-col two-col--align-center">
+          <div>
+            <h1 class="page-title text-light mb-1">Our Services</h1>
+            <h2 class="subheading"><strong>Honest, Realistic Solutions</strong></h2>
+            <p>At Lau Hairdressing, we believe that great hair is more than a look, it's a feeling. That's why every service we offer is designed to give you both confidence and ease, with results that last far beyond your salon visit.</p>
+            <p>We'll create a bespoke aftercare plan tailored just for you, complete with professional tips, styling hacks, and product recommendations to keep your hair looking salon-fresh every day of the year.</p>
+            <p>Your lifestyle, wardrobe, and personal style all matter to us. We take the time to understand who you are and what you love, so your hairstyle feels like a true extension of your personality. Whether you're looking to solve a long-standing hair concern or simply refresh your look, we'll design a style that fits seamlessly with your life.</p>
+            <p class="mb-3">Every appointment is your time to feel seen, understood, and taken care of. With us, you'll enjoy professional attention at the highest standard, every single visit.</p>
+            <a href="/contact.html" class="btn btn--outline">Contact</a>
+          </div>
+          <div>
+            <img src="/images/home-hero.png" alt="Professional styling at Lau Hairdressing" class="img-cover" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SALON HOURS -->
+    <section class="section section--light section--border-top">
+      <div class="container">
+        <div class="two-col two-col--align-center">
+          <div>
+            <h2 class="text-bold mb-3">Salon Hours</h2>
+            <table class="footer-hours mb-3">
+              <tr><td>Mon</td><td>Closed</td></tr>
+              <tr><td>Tue</td><td>9:30 - 8pm</td></tr>
+              <tr><td>Wed</td><td>9am - 6pm</td></tr>
+              <tr><td>Thu</td><td>9am - 6pm</td></tr>
+              <tr><td>Fri</td><td>9:30 - 7pm</td></tr>
+              <tr><td>Sat</td><td>8am - 5pm</td></tr>
+              <tr><td>Sun</td><td>Closed</td></tr>
+            </table>
+            <div class="btn-group">
+              <a href={BOOKING_URL} class="btn btn--outline" target="_blank" rel="noopener">Book now</a>
+              <a href={MAPS_URL} class="btn btn--outline" target="_blank" rel="noopener">Find us</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICE MENU -->
+    <section class="service-section--dark">
+      <div class="container">
+        <div class="two-col">
+          <div>
+            <h2 class="text-bold mb-1">Service Menu</h2>
+            <h3 class="subheading text-bold mb-3">Pricing Structure</h3>
+            <p class="mb-3">Our prices reflect the experience levels of our stylists in our team. All listed prices are a guide for each tailored service. Check out our Stylists Page for more information or just ask in salon.</p>
+
+            <h3 class="text-bold mb-2">Cuts</h3>
+            <table class="service-table mb-3">
+              {cuts.map(row => row
+                ? <tr><td>{row[0]}</td><td>{row[1]}</td></tr>
+                : <tr><td colspan="2"></td></tr>
+              )}
+            </table>
+            <p class="note mb-3">Children's appointments Monday to Friday only. Luxury Gift Vouchers available.</p>
+
+            <h3 class="text-bold mb-2">Colour & Treatments</h3>
+            <table class="service-table mb-3">
+              {colour.map(([name, price]) => (
+                <tr><td>{name}</td><td>{price}</td></tr>
+              ))}
+            </table>
+
+            <div class="callout-box">
+              <p><strong>Important Information:</strong></p>
+              <p>Please call the salon to arrange a free colour or perm consultation. All technical services are booked with a cut and or blow-dry service. An allergy alert test is required at least 48 hours prior to the service. The price of colour services does not include a toner. All prices are starting prices and the price will be confirmed at the consultation stage by the individual stylist. Prices exclude cut and finish and may vary according to your initial consultation.</p>
+            </div>
+          </div>
+          <div>
+            <img src="/images/salon/interior.jpg" alt="Lau Hairdressing salon interior" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

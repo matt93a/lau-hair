@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const BOOKING_URL = 'https://s-iq.co/BookingPortal/dist/?salonid=144ab19c-0032-4459-b79d-126853a7c144&tab=book';
+
+const stylists = [
+  { name: 'Damon', role: 'Salon Owner',        img: '/images/stylists/damon.jpg' },
+  { name: 'Katy',  role: 'Salon Manager',      img: '/images/stylists/katy.jpg'  },
+  { name: 'Lisa',  role: 'Front of House',     img: '/images/stylists/lisa.jpg'  },
+  { name: 'Emily', role: 'Level 3 Stylist',    img: '/images/stylists/emily.jpg' },
+  { name: 'Chloe', role: 'Level 1 Stylist',    img: '/images/stylists/chloe.jpg' },
+  { name: 'Nick',  role: 'Level 1 Stylist',    img: '/images/stylists/nick.png'  },
+  { name: 'Simon', role: 'The Maintenance Man',img: '/images/stylists/simon.jpg' },
+];
+---
+<BaseLayout
+  title="Meet Our Stylists | Lau Hairdressing, Maidstone"
+  description="Meet our expert stylists at our hairdressing salon. We pride ourselves on our friendly service, personalized hairstyles, and commitment to ongoing education in the latest trends and techniques. Your satisfaction is our top priority"
+>
+  <div class="page-top">
+    <section class="section section--light">
+      <div class="container">
+        <div class="stylists-intro">
+          <div class="stylists-intro__left">
+            <h1 class="page-title text-light">Your Stylists</h1>
+            <h2 class="text-bold mt-2">Meet the Experts</h2>
+            <p class="mt-3">At Lau Hairdressing, our stylists go beyond just creating beautiful hair - they make every visit a warm and welcoming experience. You'll always be greeted with a smile and genuine conversation, as we take the time to listen and understand exactly what you need. We offer honest advice and create hairstyles that not only suit your face shape and lifestyle but are also easy to maintain at home. Passionate about our craft, we stay updated with the latest techniques and products to bring you the best results. Most importantly, we want you to feel completely at ease, enjoy your time with us, and leave feeling 100% happy - every single visit. Meet your experts below.</p>
+            <div class="stylists-intro__buttons">
+              <a href={BOOKING_URL} class="btn btn--primary" target="_blank" rel="noopener">Book now</a>
+              <a href="/visit.html" class="btn btn--outline">Your Visit</a>
+            </div>
+          </div>
+          <div class="stylists-intro__right">
+            <div class="stylists-quote">
+              <p>"Life is a series of challenges, but a great hairdresser can turn any bad day into a masterpiece."</p>
+              <p class="stylists-quote__author">Damon Lau</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--light">
+      <div class="container">
+        <div class="stylists-grid">
+          {stylists.map(s => (
+            <div class="stylist-card">
+              <img src={s.img} alt={s.name} />
+              <div class="stylist-card__overlay">
+                <p class="stylist-card__name">{s.name}</p>
+                <p class="stylist-card__role">{s.role}</p>
+              </div>
+            </div>
+          ))}
+          <div class="stylist-card stylist-card--hiring">
+            <img src="/images/logo-white.svg" alt="We're hiring" />
+            <div class="stylist-card__overlay">
+              <a href="/careers.html" class="stylist-card__hiring-link">We're hiring</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

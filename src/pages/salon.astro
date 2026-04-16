@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const BOOKING_URL = 'https://s-iq.co/BookingPortal/dist/?salonid=144ab19c-0032-4459-b79d-126853a7c144&tab=book';
+---
+<BaseLayout
+  title="Our Salon | Lau Hairdressing, Maidstone"
+  description="Discover Lau Hairdressing's ethos - dedicated to making you feel great with personalized haircare advice, professional hair tips, and unique hairstyles that reflect your personality. Experience the professional care you deserve at Lau hair"
+>
+  <!-- PAGE CONTENT WRAPPER -->
+  <div class="page-top">
+    <!-- HERO SECTION -->
+    <section class="salon-hero">
+      <div class="salon-hero__carousel" data-carousel>
+        <div class="salon-hero__slides" data-carousel-track>
+          <div class="salon-hero__slide">
+            <img src="/images/salon/salon-hero.png" alt="Lau Hairdressing Salon" />
+          </div>
+          <div class="salon-hero__slide">
+            <img src="/images/salon/salon-hero.png" alt="Lau Hairdressing Salon" />
+          </div>
+          <div class="salon-hero__slide">
+            <img src="/images/salon/salon-hero.png" alt="Lau Hairdressing Salon" />
+          </div>
+        </div>
+        <div class="salon-hero__nav">
+          <button class="salon-hero__arrow" data-carousel-next aria-label="Next image">&rarr;</button>
+          <button class="salon-hero__arrow" data-carousel-prev aria-label="Previous image">&larr;</button>
+        </div>
+      </div>
+      <div class="quote-block">
+        <p class="quote-block__text">"Life is a series of challenges, but a great hairdresser can turn any bad day into a masterpiece."</p>
+        <p class="quote-block__author">Damon Lau</p>
+      </div>
+    </section>
+
+    <!-- THE SALON SECTION -->
+    <section class="section">
+      <div class="container">
+        <h1 class="page-title">The Salon</h1>
+        <div class="two-col">
+          <!-- LEFT COLUMN: OUR ETHOS -->
+          <div>
+            <h2 class="subheading">Our Ethos</h2>
+            <p>The Lau Hairdressing ethos has always been to make people feel great about themselves. We promise to give you individual prescriptive haircare advice and we will share all our top tips and professional hair hacks that will enable you to look after your own hair just as good at home, for 365 days of the year.</p>
+            <p>Our clients are actively encouraged to talk about themselves and any hairdressing problems they have always wanted solved. The best hair style is one that has been individually designed reflecting your personality, looks and lifestyle. It will complete your total appearance.</p>
+            <p>At Lau, we offer you the professional care and attention you deserve.</p>
+            <div class="btn-group">
+              <a href={BOOKING_URL} class="btn btn--primary" target="_blank" rel="noopener">Book now</a>
+              <a href="#" class="btn btn--outline">Aftercare</a>
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN: HERITAGE -->
+          <div>
+            <h2 class="subheading">Heritage</h2>
+            <p>Lau's specific branding evolved from Damon's Chinese heritage. All Chinese artists sign their specific artwork in red ink with a stamp hand-carved and created from a solid block of marble called a 'Chop' or 'Seal' - this serves as their unique signature of quality. A direct translation of our Seal is 'Lau's House of Hair'.</p>
+            <p>All of our stylists are truly amazing artists.</p>
+            <div class="btn-group">
+              <a href="/stylists.html" class="btn btn--outline">Stylists</a>
+              <a href="/careers.html" class="btn btn--outline">Careers</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SALON HOURS SECTION -->
+    <section class="section section--light">
+      <div class="container">
+        <h2 class="subheading">Salon Hours</h2>
+        <p>We are open late nights on Tuesdays and Fridays (see below). Early morning appointments are from 8am on Saturdays. The salon is closed on Sundays and Mondays. Bookings can be made by calling 01622 670 557 during salon hours or 24/7 via online booking</p>
+
+        <table class="hours-table">
+          <tr><td>Mon</td><td>Closed</td></tr>
+          <tr><td>Tue</td><td>9:30am - 8pm</td></tr>
+          <tr><td>Wed</td><td>9am - 6pm</td></tr>
+          <tr><td>Thu</td><td>9am - 6pm</td></tr>
+          <tr><td>Fri</td><td>9:30am - 7pm</td></tr>
+          <tr><td>Sat</td><td>8am - 5pm</td></tr>
+          <tr><td>Sun</td><td>Closed</td></tr>
+        </table>
+
+        <div class="btn-group">
+          <a href={BOOKING_URL} class="btn btn--primary" target="_blank" rel="noopener">Book now</a>
+          <a href="/contact.html" class="btn btn--outline">Find us</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script is:inline>
+    (function() {
+      const carousel = document.querySelector('[data-carousel]');
+      if (!carousel) return;
+      const track = carousel.querySelector('[data-carousel-track]');
+      const slides = track.querySelectorAll('.salon-hero__slide');
+      const prev = carousel.querySelector('[data-carousel-prev]');
+      const next = carousel.querySelector('[data-carousel-next]');
+      let i = 0;
+      function go(delta) {
+        i = (i + delta + slides.length) % slides.length;
+        track.style.transform = 'translateX(-' + (i * 100) + '%)';
+      }
+      next.addEventListener('click', () => go(1));
+      prev.addEventListener('click', () => go(-1));
+    })();
+  </script>
+</BaseLayout>

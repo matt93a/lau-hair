@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const BOOKING_URL = 'https://s-iq.co/BookingPortal/dist/?salonid=144ab19c-0032-4459-b79d-126853a7c144&tab=book';
+---
+<BaseLayout
+  title="Microblading Kent | Tamlin Lau at Lau Hairdressing"
+  description="Discover affordable microblading services starting at £300, including 6-week infills. Ideal for over-plucked, sparse, or non-existent eyebrows. Our treatment offers realistic hair strokes for a natural look, reshaping and adding volume to your brows. Enjoy long-lasting results up to 12 months. Say goodbye to daily makeup routines"
+>
+  <div class="page-top">
+    <section class="hero-grid">
+      <div class="hero-grid__image">
+        <img src="/images/microblading/tamlin-lau.png" alt="Tamlin Lau, Microblading Artist" class="hero-grid__image-img" />
+      </div>
+      <div class="hero-grid__content">
+        <div class="quote-block">
+          <blockquote>
+            <p>"Brows frame your face, and with the artist's touch, every glance becomes a statement of confidence and grace."</p>
+            <footer>— Tamlin Lau</footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="section section--light">
+    <div class="container">
+      <h1 class="page-title text-light">Tamlin Lau</h1>
+      <p class="subheading"><strong>Your microblading artist</strong></p>
+
+      <p>At Lau Hairdressing, our stylists go beyond just creating beautiful hair - they make every visit a warm and welcoming experience. You'll always be greeted with a smile and genuine conversation, as we take the time to listen and understand exactly what you need. We offer honest advice and create hairstyles that not only suit your face shape and lifestyle but are also easy to maintain at home. Passionate about our craft, we stay updated with the latest techniques and products to bring you the best results. Most importantly, we want you to feel completely at ease, enjoy your time with us, and leave feeling 100% happy - every single visit. Meet your experts below.</p>
+
+      <div class="button-group">
+        <a href={BOOKING_URL} class="btn btn--primary" target="_blank" rel="noopener">Book now</a>
+        <a href="/visit.html" class="btn btn--outline">Your Visit</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

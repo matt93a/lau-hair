@@ -1,0 +1,8 @@
+[build]
+  # Astro builds static files to dist/ which Netlify serves as the site
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  # Pin Node version to match local dev
+  NODE_VERSION = "24"

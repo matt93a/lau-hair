@@ -11,3 +11,11 @@ designer-assets/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Astro build artifacts + deps
+node_modules/
+dist/
+.astro/
+.env
+.env.production
+.env.development

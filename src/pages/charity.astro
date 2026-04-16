@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const BOOKING_URL = 'https://s-iq.co/BookingPortal/dist/?salonid=144ab19c-0032-4459-b79d-126853a7c144&tab=book';
+---
+<BaseLayout
+  title="Charity | Lau Hairdressing"
+  description="Lau Hairdressing supports CoCo's Food4Life Foundation to help orphan children in Africa. Read about our LAU Cows and our ongoing commitment to this amazing cause."
+>
+  <section class="page-top">
+    <div class="container">
+      <h1 class="page-title">Charity</h1>
+      <p class="page-top__subtitle">CoCo's Foundation</p>
+    </div>
+  </section>
+
+  <section class="section section--light">
+    <div class="container">
+      <div class="two-col two-col--align-center">
+        <div>
+          <p>In December 2021 at Lau Hairdressing instead of creating a Christmas Gift for all our customers, we donated on your behalf £500.00 to the Amazing CoCo's Food4Life Foundation to help raise funds for orphan children that are unable to do it themselves in Africa.</p>
+          <p>Our initial target was to reach £1000. We have now reached well in excess of this. Thank you so much to everyone who has already donated.</p>
+          <p>On sat 5th Feb 22 we raised enough money for Mandela in Uganda to buy 3 Cows, two of which are pregnant. These lovely animals will now supply daily fresh milk to the 101 orphan children that he cares for.</p>
+        </div>
+        <div class="text-center">
+          <img src="/images/charity/cocos-logo.png" alt="CoCo's Foundation Logo" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container text-center">
+      <h2>Meet the LAU Cow's</h2>
+      <p class="mt-1">(L) Laura (A) Amy (U) Usher</p>
+      <div class="mt-3 mb-3">
+        <img src="/images/charity/lau-cow.gif" alt="The LAU Cows - Laura, Amy and Usher" class="charity-img--center" />
+      </div>
+      <p>Please help us further fund the Food4Life program to help maintain these lovely animals and share this link with friends. Together we really can change children's lives!</p>
+      <p>Damon, Lisa & The Team x</p>
+    </div>
+  </section>
+
+  <section class="section section--light">
+    <div class="container text-center">
+      <h2>Welcome to the family</h2>
+      <p class="mt-1">New Baby Lau Cow born 8th May 2022</p>
+      <div class="mt-3 mb-3">
+        <img src="/images/charity/baby-cow.png" alt="New baby Lau cow born May 2022" class="charity-img--center" />
+      </div>
+      <div class="btn-group btn-group--center">
+        <a href={BOOKING_URL} class="btn btn--primary" target="_blank" rel="noopener">Book now</a>
+        <a href="/contact.html" class="btn btn--outline">Contact</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

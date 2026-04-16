@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const sections = [
+  { heading: '1. Acceptance of Terms',                 body: 'By accessing and using the Lau Hairdressing website, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service. We reserve the right to make changes to these terms at any time. Please review these terms regularly to ensure you are aware of any updates or changes.' },
+  { heading: '2. Advice',                              body: 'The information contained on the Lau Hairdressing website is provided as a general guide only. While we endeavour to keep the information up to date and correct, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability, or availability with respect to the website or the information contained on the website. Any reliance you place on such information is therefore strictly at your own risk.' },
+  { heading: '3. Changes to Website',                  body: 'Lau Hairdressing reserves the right to modify or discontinue, temporarily or permanently, the website or any service to which it relates with or without notice and without liability to you or any third party. You agree that Lau Hairdressing shall not be liable to you or any third party for any modification, suspension, or discontinuance of the website or any service to which it relates.' },
+  { heading: '4. Links to Third Party Websites',       body: 'The Lau Hairdressing website may contain links to third party websites. These links are provided for your convenience to provide further information. They do not signify any endorsement by Lau Hairdressing of those third party websites. We have no responsibility for the content of the linked website(s). The user assumes responsibility and risk for the use of any third party websites.' },
+  { heading: '5. Copyright',                           body: 'All content included on the Lau Hairdressing website, including but not limited to text, graphics, logos, images, audio clips, digital downloads, and data compilations, is the property of Lau Hairdressing, or its content suppliers, and is protected by international copyright laws. The compilation of all content on the Lau Hairdressing website is the exclusive property of Lau Hairdressing and is protected by international copyright laws. All software used on the Lau Hairdressing website is the property of Lau Hairdressing or its software suppliers and is protected by international copyright laws.' },
+  { heading: '6. Disclaimers and Limitation of Liability', body: 'Your use of the Lau Hairdressing website is at your sole risk. The website is provided on an "as is" and "as available" basis. Lau Hairdressing makes no warranties, expressed or implied, regarding the website or the materials contained herein. This includes warranties of merchantability and fitness for a particular purpose. Lau Hairdressing will not be liable for any damages of any kind arising from the use of this website, including but not limited to indirect, incidental, punitive, and consequential damages.' },
+  { heading: '7. Indemnity',                           body: 'You agree to indemnify, defend, and hold harmless Lau Hairdressing, its officers, directors, employees, agents, and suppliers from and against any claims, liabilities, damages, losses, costs, and expenses, including but not limited to legal fees, arising out of or related to your use of the website, your violation of these terms and conditions, or your infringement of any intellectual property or other right of any person or entity.' },
+  { heading: '8. Severance',                           body: 'If any provision of these terms and conditions is found by a court of competent jurisdiction to be invalid, illegal, or unenforceable, the validity, legality, and enforceability of the remaining provisions shall not be affected, and those provisions shall remain in full force and effect. If any provision is found to be invalid or unenforceable, we will modify that provision to the minimum extent necessary to make it valid and enforceable while preserving the intent of the original provision.' },
+  { heading: '9. Governing Law',                       body: 'These terms and conditions are governed by and construed in accordance with the laws of England and Wales. You irrevocably submit to the exclusive jurisdiction of the courts located in England and Wales. Any action or proceeding arising out of or relating to these terms and conditions shall be brought exclusively in the courts of England and Wales, and you consent to the jurisdiction of such courts.' },
+];
+---
+<BaseLayout
+  title="Terms & Conditions | Lau Hairdressing"
+  description="The terms and conditions governing your use of the Lau Hairdressing website."
+>
+  <section class="page-top">
+    <div class="container">
+      <h1 class="page-title">Terms & Conditions</h1>
+    </div>
+  </section>
+
+  <section class="section section--light">
+    <div class="container">
+      {sections.map(s => (
+        <>
+          <h2>{s.heading}</h2>
+          <p>{s.body}</p>
+        </>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
