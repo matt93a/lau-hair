@@ -34,7 +34,7 @@
   <header class="site-header">
     <div class="header-inner">
       <div class="nav-left">
-        <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.mobile-nav').classList.toggle('active')">
+        <button class="nav-toggle" aria-label="Toggle menu" onclick="this.closest('.site-header').classList.toggle('nav-folded'); document.querySelector('.mobile-nav').classList.toggle('active')">
           <span></span><span></span><span></span>
         </button>
         <ul class="main-nav">
@@ -90,14 +90,46 @@
 
     <!-- HERO SECTION -->
     <section class="salon-hero">
-      <div class="salon-hero__image">
-        <img src="images/salon/salon-hero.png" alt="Lau Hairdressing Salon">
+      <div class="salon-hero__carousel" data-carousel>
+        <div class="salon-hero__slides" data-carousel-track>
+          <div class="salon-hero__slide">
+            <img src="images/salon/salon-hero.png" alt="Lau Hairdressing Salon">
+          </div>
+          <div class="salon-hero__slide">
+            <img src="images/salon/salon-hero.png" alt="Lau Hairdressing Salon">
+          </div>
+          <div class="salon-hero__slide">
+            <img src="images/salon/salon-hero.png" alt="Lau Hairdressing Salon">
+          </div>
+        </div>
+        <div class="salon-hero__nav">
+          <button class="salon-hero__arrow" data-carousel-next aria-label="Next image">&rarr;</button>
+          <button class="salon-hero__arrow" data-carousel-prev aria-label="Previous image">&larr;</button>
+        </div>
       </div>
       <div class="quote-block">
         <p class="quote-block__text">"Life is a series of challenges, but a great hairdresser can turn any bad day into a masterpiece."</p>
         <p class="quote-block__author">Damon Lau</p>
       </div>
     </section>
+
+    <script>
+      (function() {
+        const carousel = document.querySelector('[data-carousel]');
+        if (!carousel) return;
+        const track = carousel.querySelector('[data-carousel-track]');
+        const slides = track.querySelectorAll('.salon-hero__slide');
+        const prev = carousel.querySelector('[data-carousel-prev]');
+        const next = carousel.querySelector('[data-carousel-next]');
+        let i = 0;
+        function go(delta) {
+          i = (i + delta + slides.length) % slides.length;
+          track.style.transform = 'translateX(-' + (i * 100) + '%)';
+        }
+        next.addEventListener('click', () => go(1));
+        prev.addEventListener('click', () => go(-1));
+      })();
+    </script>
 
     <!-- THE SALON SECTION -->
     <section class="section">

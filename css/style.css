@@ -104,24 +104,39 @@ p {
 }
 
 .nav-toggle {
-  display: none;
+  display: block;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 0.5rem 0.6rem;
 }
 
+/* Vertical dots (⋮) */
 .nav-toggle span {
   display: block;
-  width: 20px;
-  height: 2px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
   background: #000;
-  margin: 4px 0;
+  margin: 3px auto;
   transition: 0.3s;
 }
 
 .site-header--dark .nav-toggle span {
   background: #fff;
+}
+
+/* Folded nav state: main-nav condenses horizontally into the dots */
+.main-nav {
+  overflow: hidden;
+  max-width: 800px;
+  transition: max-width 0.4s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.25s ease;
+}
+
+.site-header.nav-folded .main-nav {
+  max-width: 0;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .main-nav {
@@ -251,6 +266,7 @@ p {
   display: flex;
   gap: 1.5rem;
   flex-wrap: wrap;
+  margin-top: 0.5rem;
 }
 
 .btn-group--center {
@@ -412,6 +428,61 @@ p {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* Carousel (hero image slides) */
+.salon-hero__carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+.salon-hero__slides {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.salon-hero__slide {
+  flex: 0 0 100%;
+  min-width: 100%;
+  height: 100%;
+}
+
+.salon-hero__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.salon-hero__nav {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 2;
+}
+
+.salon-hero__arrow {
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.salon-hero__arrow:hover {
+  background: #ffffff;
 }
 
 /* ============================================
@@ -748,12 +819,16 @@ p {
   bottom: 0;
   background: #fff;
   z-index: 999;
+  /* .active only opens the overlay on mobile — desktop uses nav-folded instead */
   padding: 2rem;
   overflow-y: auto;
 }
 
-.mobile-nav.active {
-  display: block;
+/* Mobile-nav overlay only appears at mobile breakpoints; desktop uses nav-folded */
+@media (max-width: 768px) {
+  .mobile-nav.active {
+    display: block;
+  }
 }
 
 .mobile-nav a {
