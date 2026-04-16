@@ -202,7 +202,7 @@ test project/
 
 | Service | Account/ID | Status |
 |---------|-----------|--------|
-| GitHub | `matt93a/lau-hair` | Active, 3 commits |
+| GitHub | `matt93a/lau-hair` | Active, 5 commits |
 | GA4 | Not yet created | TODO |
 | Search Console | Not yet verified | TODO |
 | Netlify | Not yet connected | TODO (see `docs/netlify-setup.md`) |
@@ -213,7 +213,7 @@ test project/
 
 ## 9. First Actions on the New PC
 
-1. **Clone repo:** `git clone https://github.com/matt93a/lau-hair.git "test project"` → `cd "test project"`
+1. **Clone repo:** `git clone https://github.com/matt93a/lau-hair.git lau-hair` → `cd lau-hair`
 2. **Copy designer-assets/** folder from the old PC (zip → Drive → unzip into repo root). Verify `designer-assets/Lau Hair/Website Assets/Images/` exists.
 3. **Authenticate gh:** `gh auth login` (if you'll be using gh CLI for PRs/issues).
 4. **Set git identity** (if fresh install):
@@ -233,7 +233,9 @@ test project/
 |--------|------|------|
 | `d7fa68c` | Initial build: 12 pages, designer assets, Schema.org, sitemap, robots, gitignore | Session 1 |
 | `4ead2e8` | Clean up inline styles (10 pages), hero rendering attempt #1 | Session 2 (morning) |
-| `cc19ebe` | Design overhaul: hero fill edge-to-edge on mobile, footer compact, microblading hiring banner removed, scissors stock photo → designer image | Session 2 (evening — this one) |
+| `cc19ebe` | Design overhaul: hero fill edge-to-edge on mobile, footer compact, microblading hiring banner removed, scissors stock photo → designer image | Session 2 (evening) |
+| `8c071c1` | Add HANDOVER.md for cross-PC continuity | Session 2 (evening) |
+| `ac61408` | Separate Lau Hair from command-centre project; correct HANDOVER.md | Session 2 (evening) |
 
 ---
 
