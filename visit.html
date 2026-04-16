@@ -34,7 +34,7 @@
   <header class="site-header">
     <div class="header-inner">
       <div class="nav-left">
-        <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.mobile-nav').classList.toggle('active')">
+        <button class="nav-toggle" aria-label="Toggle menu" onclick="this.closest('.site-header').classList.toggle('nav-folded'); document.querySelector('.mobile-nav').classList.toggle('active')">
           <span></span><span></span><span></span>
         </button>
         <ul class="main-nav">
@@ -92,7 +92,7 @@
         <div class="two-column-layout">
           <!-- LEFT COLUMN -->
           <div class="two-column-layout__left">
-            <h1 class="text-light">Your Visit</h1>
+            <h1 class="page-title text-light">Your Visit</h1>
             <h2 class="subheading"><strong>The Consultation</strong></h2>
 
             <p>At Lau, we provide a professional consultation service designed to elevate your salon experience. Whether it's a special occasion or a regular haircut, our passionate team will create a unique and personalised hairstyle that perfectly suits your individuality. We take the time to understand your preferences, hair texture, and personal style, ensuring that every detail aligns with your vision. Our goal is to go beyond the ordinary, offering a service that leaves you feeling refreshed, confident, and truly pampered.</p>

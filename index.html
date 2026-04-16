@@ -61,7 +61,7 @@
   <header class="site-header site-header--dark">
     <div class="header-inner">
       <div class="nav-left">
-        <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.mobile-nav').classList.toggle('active')">
+        <button class="nav-toggle" aria-label="Toggle menu" onclick="this.closest('.site-header').classList.toggle('nav-folded'); document.querySelector('.mobile-nav').classList.toggle('active')">
           <span></span><span></span><span></span>
         </button>
         <ul class="main-nav">

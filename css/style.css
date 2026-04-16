@@ -266,7 +266,7 @@ p {
   display: flex;
   gap: 1.5rem;
   flex-wrap: wrap;
-  margin-top: 0.5rem;
+  margin-top: 3rem;
 }
 
 .btn-group--center {
@@ -458,9 +458,8 @@ p {
 
 .salon-hero__nav {
   position: absolute;
-  top: 50%;
+  bottom: 0;
   right: 0;
-  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -824,10 +823,19 @@ p {
   overflow-y: auto;
 }
 
-/* Mobile-nav overlay only appears at mobile breakpoints; desktop uses nav-folded */
-@media (max-width: 768px) {
+/* Mobile-nav overlay appears when main-nav is hidden (below 1100px).
+   Above 1100px, the dots toggle nav-folded to condense the inline main-nav. */
+@media (max-width: 1300px) {
   .mobile-nav.active {
     display: block;
+  }
+}
+
+/* Hide inline main-nav below 1300px so it never crashes into the centred logo.
+   Dots remain visible (already display:block globally) and open the overlay. */
+@media (max-width: 1300px) {
+  .main-nav {
+    display: none;
   }
 }
 
@@ -1109,15 +1117,9 @@ p {
   }
 }
 
-@media (max-width: 768px) {
-  .nav-toggle {
-    display: block;
-  }
-
-  .main-nav {
-    display: none;
-  }
-
+/* Hide header phone + socials below 1050px to prevent crashing into the centered logo.
+   Leaves just dots / logo / Book now at narrow desktop + tablet widths. */
+@media (max-width: 1050px) {
   .header-phone {
     display: none;
   }
@@ -1125,7 +1127,9 @@ p {
   .header-socials {
     display: none;
   }
+}
 
+@media (max-width: 768px) {
   .two-col {
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -1324,9 +1328,10 @@ p {
   margin: 0 auto;
 }
 
-/* Page top spacing for fixed header */
+/* Page top spacing for fixed header; bottom pad creates breathing room before footer */
 .page-top {
   padding-top: 80px;
+  padding-bottom: 10rem;
 }
 
 /* ============================================

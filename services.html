@@ -34,7 +34,7 @@
   <header class="site-header">
     <div class="header-inner">
       <div class="nav-left">
-        <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.mobile-nav').classList.toggle('active')">
+        <button class="nav-toggle" aria-label="Toggle menu" onclick="this.closest('.site-header').classList.toggle('nav-folded'); document.querySelector('.mobile-nav').classList.toggle('active')">
           <span></span><span></span><span></span>
         </button>
         <ul class="main-nav">
@@ -94,7 +94,7 @@
         <div class="two-col two-col--align-center">
           <!-- LEFT COLUMN -->
           <div>
-            <h1 class="text-light mb-1">Our Services</h1>
+            <h1 class="page-title text-light mb-1">Our Services</h1>
             <h2 class="subheading"><strong>Honest, Realistic Solutions</strong></h2>
             <p>At Lau Hairdressing, we believe that great hair is more than a look, it's a feeling. That's why every service we offer is designed to give you both confidence and ease, with results that last far beyond your salon visit.</p>
             <p>We'll create a bespoke aftercare plan tailored just for you, complete with professional tips, styling hacks, and product recommendations to keep your hair looking salon-fresh every day of the year.</p>

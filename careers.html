@@ -34,7 +34,7 @@
   <header class="site-header">
     <div class="header-inner">
       <div class="nav-left">
-        <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.mobile-nav').classList.toggle('active')">
+        <button class="nav-toggle" aria-label="Toggle menu" onclick="this.closest('.site-header').classList.toggle('nav-folded'); document.querySelector('.mobile-nav').classList.toggle('active')">
           <span></span><span></span><span></span>
         </button>
         <ul class="main-nav">
@@ -89,7 +89,7 @@
   <div class="page-top">
     <section class="section section--light">
       <div class="container">
-        <h1 class="text-light mb-1">Current Vacancies</h1>
+        <h1 class="page-title text-light mb-1">Current Vacancies</h1>
         <h2 class="subheading text-bold mb-3"><strong>It's all about the people</strong></h2>
 
         <p class="seo-content__text mb-4">Lau Hairdressing can offer you a fantastic opportunity to develop yourself as an individual, having fun with the satisfying knowledge that you are creating a real career and not just a job. So, if you're thinking about a career in this fantastic industry and want to know more about it, then get in touch today.</p>
