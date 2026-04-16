@@ -1,103 +1,107 @@
-# Session Notes — 2026-04-16 (updated)
+# Session Notes — 2026-04-16 (end-of-day / overnight)
 
-**Pick-up instructions for the next Claude instance.**
-Read this **after** `CLAUDE.md` (now reflects the Astro migration) and optionally skim `HANDOVER.md` for old context.
+**Good morning, Matt.** Summary of what I did while you slept.
 
----
-
-## Where we are now
-
-The site is **live on Netlify** (chic-peony-38af97.netlify.app, auto-deploys from GitHub `main`). We went through several big phases today:
-
-1. **Audit pass on salon.html** (flat HTML era) — colour tokens, spacing, dots nav, hero carousel, image edge alignment, fonts
-2. **Site-wide audit pass** — nav handlers + `.page-title` H1s + responsive breakpoints across all 11 other pages
-3. **Migrated the entire site from flat HTML to Astro 5** — commit `b63b916`. Safety branch `pre-astro-migration` pinned at the pre-migration commit `c36c96b` for rollback
-4. **Salon touch-ups on the Astro site** — hero margin, page-title to 72px then 50px then 40px (Matt settled on 40)
-5. **Stylists audit pass** — heading/subheading sizes, quote panel tokens, 60/40 intro split, swapped baby-placeholder photos for live-site portraits
-6. **Services audit pass 1** (my most recent work while Matt was out) — replaced wrong images with designer's male-model portrait + black scissors; brought heading sizes in line with the Sketch typography scale (40 / 20 / 14)
-
-**Latest commit:** `af80793` — all on `main`, pushed to GitHub, Netlify deploying.
+Safety branch `pre-overnight-audit` (commit `92ec62b`) is pushed to GitHub — reset to that if you want to wipe tonight's work.
 
 ---
 
-## Architecture (post-migration)
+## What got done overnight
 
-- **Astro 5.x** static build (`output: 'static'`, `build.format: 'file'` so URLs stay `/salon.html` not `/salon/`)
-- `src/layouts/BaseLayout.astro` — HTML skeleton, head, fonts, GA placeholder, renders header/footer/mobile-nav
-- `src/components/Header.astro` + `MobileNav.astro` + `Footer.astro` — single-source-of-truth for nav, hours, address, socials. **Edit once → every page updates on next build.**
-- `src/pages/*.astro` — one per route (13 pages incl. `landing.astro`). Each wraps its unique body in `<BaseLayout>`.
-- `public/` — static assets (css/, images/, robots.txt, sitemap.xml, favicon) copied to `dist/` unchanged on build.
-- **Styles still live in one file:** `public/css/style.css`. No scoped component styles yet. BEM-ish + utility classes.
-- `netlify.toml` pins Node 24, runs `npm run build`, publishes `dist/`.
+### Your specific feedback — all addressed
 
-### Local preview
+| You said | What I did |
+|---|---|
+| "Microblading banner should be the same type as salon, why is it different" | Rebuilt microblading hero from scratch using the salon-hero pattern: 1200px container, image-left / dark-quote-right, carousel with 3 slides (same image until real assets), arrows bottom-right of image, identical breathing room margins. Structurally identical to /salon.html now. |
+| "Charity page come on we can do 100% better" | Full rewrite. 5 sections now: page-header, full-bleed dark IMPACT STATS banner (£1,000+ / 3 cows / 101 kids at 60px UltraLight), two-col OUR STORY with CoCo's logo card, full-bleed dark LAU COWS feature with gold accents, centered editorial-card "Latest news" with the baby cow + CTA. Complete visual hierarchy now. |
+| "services why is the man image chopped off" | The 736×1104 portrait was being forced into 536×500 landscape via `object-fit: cover` — chopping top and bottom of his face. New `.services-hero-img` uses `object-fit: contain` with max-height 720px. Full image visible. |
+| "on the services page also the black panel sits on the background it doesn't become it" | Dark pricing section now breaks out of `.page-top`'s 10rem padding and spans the full viewport via `width: 100vw; margin: 4rem calc(50% - 50vw) 0`. Background colour also corrected `#1a1a1a → #121212` (designer token). |
+| "create an email... for Mailchimp with some offer products and articles" | Built at `email/lau-newsletter.html`. See email section below. |
 
-- `.claude/launch.json` (in `C:\Users\mp\Desktop\Claude\.claude\`, one level up) runs `.claude/start-preview.cmd`
-- That script now does `npm run build` then `http-server dist -p 8080`
-- **Faster dev loop:** `npm run dev` for HMR — but you'll need to point your browser at the Astro dev port (typically 4321) instead of :8080
+### Extra sweep (same pass)
 
-### Node PATH caveat (still true)
+- **Visit hero**: image was rendering 1110px tall (over a thousand pixels of model face stretched down the page). Capped at 720px with centred crop.
+- **Homepage SEO block**: heading was 16px bold — now 40px UltraLight `.page-title`. Body text bumped from 12.8px to 15.2px, line-height 1.7, colour #454545. Reads like a proper paragraph.
+- **Contact page**: "Get In Touch" + "Our Location" were 44.8px h2s (louder than the 40px page-title); demoted to `.subheading`. Dropped the `.section--white` block that caused a white→grey→footer-white stutter in the background.
+- **Legal pages (terms, privacy, cancellations)**: introduced `.legal-body` utility. Max-width 760px for readable line-length, h2 headings 20px regular weight (not 44.8px UltraLight), proper 14.4px body text at line-height 1.7. Reads like a document now instead of a series of billboards.
 
-Node 24.15 lives at `C:\Program Files\nodejs\` and is **not** on Claude Code's inherited PATH. Every `npm` call needs either the full path (`"C:\Program Files\nodejs\npm.cmd" ...`) or a PATH export (`export PATH="/c/Program Files/nodejs:$PATH"`) before running.
+### What I deliberately left alone
 
----
-
-## Design standards that are now locked in
-
-| Thing | Value | Where |
-|---|---|---|
-| Body bg | `#E5E5E5` | `body`, `.section--light` |
-| Footer bg | `#FFFFFF` | `.site-footer` |
-| Dark panel bg | `#121212` | `.quote-block`, `.stylists-quote` |
-| Body text | Montserrat 14.4px, weight 300, line-height 1.5 | `body`, `p` |
-| Page title (H1) | **40px flat** Montserrat UltraLight (weight 200) | `.page-title` — used on EVERY page, same size everywhere |
-| Sub-section heading (Cuts / Colour & Treatments type) | 20px Montserrat Light | `.pricing-category` — new utility added in services pass |
-| Subheading (small bold) | 14px Montserrat Bold | `.subheading` |
-| Section padding | 40px top/bottom | `.section` |
-| Nav→content gap on non-hero pages | ~82px (from `.page-top > .section:first-child { margin-top: 2rem }`) | rule in style.css |
-| Header "Book now" | Black bg + white text on light header (`btn--primary`); outline-white on dark header | `Header.astro` |
-| Paragraph → buttons | 48px margin-top on `.btn-group` (total ~62px visible over p margin) | `.btn-group` |
-
-**Important:** Matt wants unified tokens — "agreed" values propagate to every page via class. Avoid page-scoped overrides unless there's a clear design reason. (See `feedback_unified_design_tokens.md` memory.)
-
-**Also:** quote spacing/sizes in **pixels**, not rem/% — Matt tunes things by saying "make it 60". (See `feedback_pixel_measurements.md` memory.)
+- **Salon page** — you said leave it out of the check
+- **Homepage hero** — you flagged as high-risk territory; I only touched the SEO block below the fold
+- **Careers / cancellations structure** — nothing obviously wrong; `.callout-box` cards on careers already look right
 
 ---
 
-## Outstanding for Matt's review
+## Mailchimp email — `email/lau-newsletter.html`
 
-### Services page — things he should look at
-- [ ] **Intro image on services.html** now uses the designer's male model portrait (light blonde hair, black sweater). Previously it was `home-hero.png` (a female portrait). If Matt wants the female one back, revert `src/pages/services.astro` line with `services-hero.jpg` → `home-hero.png`.
-- [ ] **Dark-section image** now uses the designer's hanging-black-scissors shot (`services-scissors.jpg` from the Sketch file). Previously salon interior. Designer clearly intended scissors per the mockup.
-- [ ] **"Service Menu" and "Salon Hours" headings** now render at `.page-title` (40px UltraLight) matching "Our Services". Matt may want them smaller/different.
-- [ ] **"Cuts" and "Colour & Treatments"** now use new `.pricing-category` class (20px Light) instead of default bold h3 (25.6px bold). Cleaner and quieter — designer tokens don't have a tier between 40 and 20px.
+### How to use it
+1. Open Mailchimp
+2. New campaign → Email → Regular
+3. Template chooser → **Code your own** → **Paste in code**
+4. Copy entire `email/lau-newsletter.html` file → paste → save
+5. Subject line suggestion: *"Spring refresh — new offers, new brows, new articles"*
+6. Preheader (already in HTML hidden span): *"Spring offers, new treatments, and tips from the chair at Lau Hairdressing, Maidstone."*
 
-### Pending questions Matt hasn't answered
-- [ ] Stylists 8th card — keep "We're hiring" (confirmed ✓, done) — Dan's portrait downloaded to `public/images/stylists/dan.jpg` but NOT currently displayed. Add Dan as an 8th stylist + 9-cell grid (3×3)? Or leave.
-- [ ] Homepage (index.html) audit — deferred as high-risk; not yet touched vs designer mockup
-- [ ] Visit.html + Microblading.html audits — migrated but not audited yet
-- [ ] What are the `< >` circular arrows on the far left/right viewport edges of the salon mockup? Possibly carousel chrome for something bigger. Not implemented.
+### What's in it (top to bottom)
+- **Logo header** on white
+- **Hero**: services-hero.jpg + "Spring refresh." 44px UltraLight headline + intro copy + Book Now button
+- **Offer 1 (white block)**: *£25 off a first-time balayage* — book-balayage CTA
+- **Offer 2 (dark block)**: *Brows that frame your face* — microblading promo with Tamlin's image, see-microblading CTA
+- **Article (white block)**: *3 at-home habits that keep colour fresh for longer* — numbered tips, see-services CTA
+- **Charity (grey block)**: *Laura, Amy & Usher are still supplying milk…* — read-the-story CTA
+- **Hours + address** block
+- **Dark footer** with Instagram/Facebook/X links, copyright, unsubscribe + update-preferences merge tags
 
-### Known content gaps (Matt/client task, not code)
-- [ ] Proper adult photos for stylists already fetched from live site — but if he wants NEW styled portraits matching the designer mockup (colour stylised, consistent), that's a photoshoot task
-- [ ] Real GA4 Measurement ID (currently `G-XXXXXXXXXX` placeholder in BaseLayout.astro)
-- [ ] Confirm microblading pricing with Tamlin
+### Tech choices
+- Table-based layout (the only thing Outlook/Gmail/iOS Mail all render consistently)
+- All styles inline (Gmail strips `<style>` in forwarded/mobile views)
+- 600px fixed desktop, stacks at 620px breakpoint for mobile
+- MSO fallbacks for buttons (Outlook can't render rounded corners or padded anchors — the VML blocks are hidden from everything else)
+- Uses the same design language as the site: Montserrat, #E5E5E5/#FFF/#121212 palette, #B09F65 gold eyebrow labels, 40px UltraLight headlines
+
+### Open tweaks you'd need to do before sending
+- Confirm the £25 balayage offer is real / adjust wording
+- Replace `*|UNSUB|*` and `*|UPDATE_PROFILE|*` with actual Mailchimp merge tags (they'll auto-populate when pasted into Mailchimp's editor but double-check)
+- Swap images to whatever you want — URLs currently reference the live lau-hair.com paths, which will only work once Netlify's latest deploy is live
 
 ---
 
-## Next page to audit
+## Commits on main tonight
 
-Matt's rolling order so far: Salon → Stylists → Services (just done). Likely next: **Visit** (similar two-col pattern, should be quick) → **Microblading** → **Homepage** (save for last, biggest visual territory).
+```
+c6b289e  Overnight pass: services/microblading/charity + homepage hierarchy + Mailchimp email
+92ec62b  Audit pass across visit, microblading, charity, contact, terms, privacy, cancellations  ← pre-overnight-audit branch
+26973d5  Refresh SESSION-NOTES for Matt's return: current state + open items
+af80793  Services audit pass 1: designer images + heading scale alignment
+7307c30  Stylists audit pass 1: scoped heading, subheading, quote tokens, 60/40 split
+```
+
+All pushed. Netlify will rebuild.
 
 ---
 
-## Git / rollback
+## Still outstanding (I did NOT do these)
 
-- `main` → `af80793` (current, everything above)
-- `pre-astro-migration` → `c36c96b` (backup branch, flat HTML pre-Astro)
-- `git reset --hard c36c96b` if the Astro site needs to be abandoned — though Netlify would still try to build Astro unless `netlify.toml` is removed too
+### Your earlier questions still open
+- [ ] **8th stylist card** — keep "We're hiring" or change to "Microblading"? (Currently "We're hiring".) Dan's portrait is sitting unused in `public/images/stylists/dan.jpg` if you want him as an 8th stylist.
+- [ ] **Mystery side-arrows** on the salon mockup's far viewport edges — couldn't guess what they're for
+- [ ] **Real GA4 Measurement ID** — still placeholder `G-XXXXXXXXXX` in `src/layouts/BaseLayout.astro`
 
-### Gotchas still carried forward
-- `preview_screenshot` timed out earlier in the day; if it hangs again, DOM inspection via `preview_inspect` + `preview_eval` is the reliable verification path
-- Git CRLF warnings on every commit are harmless — don't touch `core.autocrlf`
-- The "baby photo" stylist images turned out to be actual baby photos (stylists as babies, possibly intentional). Replaced during the stylists audit with current live-site adult portraits.
+### Things that'd need more than a fix session
+- Homepage hero composition — the painting artwork is running off the right edge on smaller desktops; full rework needed to centre properly without chopping
+- Proper stylist photoshoot — current black-and-white scissor shots are usable but don't match designer colour aesthetic
+- Microblading + visit + services images are currently pulled from the designer's stock Sketch folder; confirm with Damon before going live
+
+---
+
+## If anything looks wrong when you open the site
+
+```bash
+git reset --hard pre-overnight-audit
+git push --force origin main  # only if you're sure
+```
+
+…will put everything back to where it was when you went to bed. Or cherry-pick commits if you want to keep some changes and drop others.
+
+Ping me in the morning with anything you want adjusted — I'll be here.

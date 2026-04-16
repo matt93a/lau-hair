@@ -1557,6 +1557,50 @@ p {
 }
 
 /* ============================================
+   LEGAL / POLICY PAGES
+   ============================================ */
+
+/* Constrain line-length on legal text so it reads like a document,
+   not a wall. 700px is comfortable for long-form reading. */
+.legal-body {
+  max-width: 760px;
+}
+
+/* Quieter heading for the numbered sections inside terms/privacy —
+   44.8px default h2 is too loud for repeated headings next to body copy. */
+.legal-body h2,
+.legal-heading {
+  font-size: 1.25rem; /* 20px Light */
+  font-weight: 400;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.legal-body h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.legal-body p {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #454545;
+}
+
+.legal-body ul {
+  margin-bottom: 1rem;
+}
+
+.legal-body li {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #454545;
+  margin-bottom: 0.3rem;
+}
+
+/* ============================================
    LANDING PAGE (landing.html)
    Minimal cover variant — dark wall, framed painting,
    vertical-dots nav at every breakpoint, no footer.

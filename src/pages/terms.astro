@@ -23,11 +23,11 @@ const sections = [
     </div>
   </section>
 
-  <section class="section section--light">
-    <div class="container">
+  <section class="section">
+    <div class="container legal-body">
       {sections.map(s => (
         <>
-          <h2>{s.heading}</h2>
+          <h2 class="legal-heading">{s.heading}</h2>
           <p>{s.body}</p>
         </>
       ))}
