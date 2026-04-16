@@ -8,11 +8,19 @@
 
 ## 1. TL;DR — Read This First
 
-- **Repo:** https://github.com/matt93a/lau-hair (branch `main`, 3 commits)
+- **Repo:** https://github.com/matt93a/lau-hair (branch `main`)
 - **Status:** Working tree is clean, all changes pushed. Site is functional but NOT yet production-ready.
 - **Live:** Not yet deployed. Netlify setup instructions in `docs/netlify-setup.md`.
 - **⚠️ CRITICAL MISSING ON GITHUB:** The `designer-assets/` folder is **gitignored** (too large). It contains the Sketch file, PDF flow, and original hi-res images. **Move this folder manually** (zip/Drive/USB) to the new PC, placing it at project root. Without it, image edits that reference the original designer output become guesswork.
 - **Required on new PC:** Git, Node.js (for `npx http-server` preview), VS Code or similar, Claude Code.
+
+### ⚠️ Folder naming — one step needed on this PC
+The project currently sits in `C:\Users\mp\Desktop\Claude Files\test project\`. That name is a legacy from when the folder was shared with an unrelated personal dashboard project. **Those files have been moved out** to `C:\Users\mp\Desktop\Claude Files\command-centre\`. The only thing blocking a clean rename of `test project` → `lau-hair` is that Claude Code holds the folder open. **After closing Claude Code**, run this once:
+```
+cd "C:\Users\mp\Desktop\Claude Files"
+move "test project" "lau-hair"
+```
+Then reopen Claude Code in the new `lau-hair` folder. On the new PC, the rename isn't needed — just `git clone https://github.com/matt93a/lau-hair.git lau-hair` to get a clean folder name from the start.
 
 ---
 
@@ -74,7 +82,7 @@ Full project context (contact details, opening hours, team, pricing, SEO targets
 ### Rough edges that should be polished
 - **`stylists.html` hiring card (8th slot)** — exists but image/copy may need refining to match designer intent.
 - **`terms.html`** — body not reviewed in detail this session. Likely fine but scan it.
-- **`command-centre.html`** — still has 10 inline styles. **NOT part of the Lau Hair site** — this is Matt's personal dashboard that got committed by accident earlier. Consider removing from repo.
+- **`command-centre.html` and related files** — these were your personal dashboard that physically shared the workspace folder but were never tracked in git. They've now been moved to `C:\Users\mp\Desktop\Claude Files\command-centre\` (separate folder, separate concern).
 - **Favicon** — currently a simple "LAU" text SVG. Designer didn't provide a specific favicon; the logo-black.svg could be adapted if Damon wants.
 
 ---
@@ -159,7 +167,6 @@ test project/
 ├── HANDOVER.md               ← this file
 ├── README.md                 (if you want to add one — not required)
 ├── index.html ... terms.html ← 12 Lau Hair pages
-├── command-centre.html       ← ⚠️ Matt's dashboard, not Lau Hair (consider removing)
 ├── robots.txt, sitemap.xml
 ├── css/style.css             ← single stylesheet, ~1200 lines
 ├── images/                   ← web-optimised images (in git)
