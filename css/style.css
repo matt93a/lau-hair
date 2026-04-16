@@ -1245,3 +1245,192 @@ p {
 .page-top {
   padding-top: 80px;
 }
+
+/* ============================================
+   LANDING PAGE (landing.html)
+   Minimal cover variant — dark wall, framed painting,
+   vertical-dots nav at every breakpoint, no footer.
+   ============================================ */
+
+/* Vertical-dots header variant (no horizontal nav at any breakpoint) */
+.site-header--minimal .main-nav {
+  display: none;
+}
+
+.site-header--minimal .nav-toggle {
+  display: block;
+  padding: 0.5rem 0.6rem;
+}
+
+/* Replace hamburger lines with vertical dots (⋮) */
+.site-header--minimal .nav-toggle span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  margin: 3px auto;
+  transition: background 0.3s, transform 0.3s;
+}
+
+/* Mobile-nav overlay with slide-down + fade animation (landing only) */
+.site-header--minimal .mobile-nav {
+  display: block;
+  top: 0;
+  padding-top: calc(60px + 2rem);
+  transform: translateY(-12px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+    visibility 0s linear 0.35s;
+}
+
+.site-header--minimal .mobile-nav.active {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+    visibility 0s linear 0s;
+}
+
+.site-header--minimal .mobile-nav a {
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.site-header--minimal .mobile-nav.active a {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger each nav item for a cascading unfold */
+.site-header--minimal .mobile-nav.active a:nth-child(1) { transition-delay: 0.10s; }
+.site-header--minimal .mobile-nav.active a:nth-child(2) { transition-delay: 0.15s; }
+.site-header--minimal .mobile-nav.active a:nth-child(3) { transition-delay: 0.20s; }
+.site-header--minimal .mobile-nav.active a:nth-child(4) { transition-delay: 0.25s; }
+.site-header--minimal .mobile-nav.active a:nth-child(5) { transition-delay: 0.30s; }
+.site-header--minimal .mobile-nav.active a:nth-child(6) { transition-delay: 0.35s; }
+.site-header--minimal .mobile-nav.active a:nth-child(7) { transition-delay: 0.40s; }
+.site-header--minimal .mobile-nav.active a:nth-child(8) { transition-delay: 0.45s; }
+.site-header--minimal .mobile-nav.active a:nth-child(9) { transition-delay: 0.50s; }
+
+/* Prevent horizontal scroll on landing */
+.landing-body {
+  overflow-x: hidden;
+}
+
+/* Landing hero: truly dark wall, framed painting centred with dimming overlay */
+.landing-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0a0a0a;
+  overflow: hidden;
+  padding: 80px 2rem 2rem;
+}
+
+/* Chunky black wooden frame around the painting */
+.landing-hero__frame {
+  position: relative;
+  width: min(85vmin, 700px);
+  aspect-ratio: 1 / 1;
+  border: 18px solid #000;
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.9),
+    inset 0 0 0 2px #2a2a2a;
+  background: #000;
+  overflow: hidden;
+}
+
+/* Painting image fills the frame */
+.landing-hero__painting {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.landing-hero__painting img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Dark overlay mutes the painting so the handwritten text pops */
+.landing-hero__dim {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+}
+
+/* Handwritten text overlay centred on painting */
+.landing-hero__overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 85%;
+  max-width: 580px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.landing-hero__overlay img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.7));
+}
+
+/* Book now button dead centre on painting */
+.landing-hero__cta {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+/* Artist signature bottom right of the viewport (on the dark wall, outside frame) */
+.landing-hero__signature {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 2;
+}
+
+.landing-hero__signature img {
+  height: 50px;
+  opacity: 0.6;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.5));
+}
+
+@media (max-width: 768px) {
+  .landing-hero {
+    padding: 80px 1rem 1rem;
+  }
+
+  .landing-hero__frame {
+    border-width: 12px;
+  }
+
+  .landing-hero__overlay {
+    width: 90%;
+  }
+
+  .landing-hero__signature {
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  .landing-hero__signature img {
+    height: 30px;
+  }
+}
