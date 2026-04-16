@@ -1,0 +1,66 @@
+---
+// Local preview of the Mailchimp newsletter. Served at /email-preview.html
+// so Matt can see what the email looks like in a browser.
+// The actual deliverable lives at email/lau-newsletter.html at the repo root —
+// that's the file to paste into Mailchimp. This page just mirrors the markup.
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const emailHtml = readFileSync(
+  join(__dirname, '..', '..', 'email', 'lau-newsletter.html'),
+  'utf-8'
+);
+
+// Extract just the <body> contents — the email file has its own <html>/<head>
+// which we can't nest inside an Astro layout.
+const bodyMatch = emailHtml.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+const bodyContent = bodyMatch ? bodyMatch[1] : emailHtml;
+
+// Pull the <style> block so the email's own CSS still applies
+const styleMatch = emailHtml.match(/<style[^>]*>([\s\S]*?)<\/style>/i);
+const styleContent = styleMatch ? styleMatch[1] : '';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Email preview — Lau Hair Newsletter</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <style set:html={styleContent}></style>
+  <style>
+    .email-preview-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10000;
+      background: #121212;
+      color: #fff;
+      padding: 10px 20px;
+      font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+    }
+    .email-preview-bar strong { font-weight: 600; color: #fff; }
+    .email-preview-bar span { color: #b09f65; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 11px; }
+    .email-preview-bar a { color: #9bd; text-decoration: none; margin-left: auto; }
+    .email-preview-bar a:hover { text-decoration: underline; }
+    body.email-preview-page { padding-top: 44px; }
+  </style>
+</head>
+<body class="email-preview-page" style="margin: 0; padding-top: 44px; background-color: #E5E5E5; font-family: Montserrat, 'Segoe UI', Arial, Helvetica, sans-serif;">
+  <div class="email-preview-bar">
+    <span>Preview</span>
+    <strong>Lau Hairdressing — Spring Update</strong>
+    <span style="color: #888; font-weight: 300; text-transform: none; letter-spacing: 0;">Subject: "Spring refresh — new offers, new brows, new articles"</span>
+    <a href="/">← Back to site</a>
+  </div>
+  <div set:html={bodyContent} />
+</body>
+</html>
