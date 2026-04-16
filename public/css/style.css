@@ -410,13 +410,13 @@ p {
   grid-template-columns: 1.2fr 1fr;
   min-height: 400px;
   max-width: 1200px;
-  margin: 2rem auto 0;
+  margin: 4.5rem auto 50px; /* 72px above (doubles header→hero gap), 50px below (→ ~90px to The Salon title) */
   padding: 0 2rem; /* match .container padding so image edge aligns with text below */
 }
 
 .page-title {
   font-weight: 200;
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(2.5rem, 6vw, 4.5rem); /* 72px at desktop (was 56px, bumped 25%+) */
   margin-bottom: 1rem;
   letter-spacing: -0.01em;
 }
