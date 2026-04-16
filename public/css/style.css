@@ -689,16 +689,17 @@ p {
 
 /* SEO Content (homepage) */
 .seo-content {
-  padding: 3rem 0;
+  padding: 5rem 0;
 }
 .seo-content__title {
-  font-size: 1rem;
-  font-weight: 700;
+  /* .page-title handles 40px UltraLight */
 }
 .seo-content__text {
   max-width: 700px;
   margin: 0 auto;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
+  color: #454545;
+  line-height: 1.7;
 }
 
 /* ============================================
@@ -877,9 +878,11 @@ p {
 
 .visit-hero-image {
   width: 100%;
-  height: 100%;
+  height: 720px;
+  max-height: 720px;
   object-fit: cover;
-  min-height: 400px;
+  object-position: center 20%;
+  display: block;
 }
 
 .salon-hours-table {
@@ -1054,9 +1057,14 @@ p {
    ============================================ */
 
 .service-section--dark {
-  background: #1a1a1a;
+  background: #121212;
   color: #fff;
-  padding: 4rem 0;
+  padding: 6rem 0;
+  /* Break out of .page-top's 10rem bottom padding and span the full viewport
+     width — the dark panel should feel like part of the page's structure,
+     not a floating card */
+  margin: 4rem calc(50% - 50vw) 0;
+  width: 100vw;
 }
 
 .service-section--dark .service-table tr {
@@ -1082,6 +1090,21 @@ p {
 }
 
 /* Cover image (fixed height) */
+/* Services hero portrait — let full image show at natural aspect ratio */
+.services-hero-col {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.services-hero-img {
+  width: 100%;
+  height: auto;
+  max-height: 720px;
+  object-fit: contain;
+  display: block;
+}
+
 .img-cover {
   width: 100%;
   height: 100%;
@@ -1358,6 +1381,172 @@ p {
 .page-header {
   padding-top: 120px; /* 80px for fixed header + 40px visual breathing room */
   padding-bottom: 1.5rem;
+}
+
+.page-top__subtitle {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: #454545;
+  margin-top: 0.5rem;
+}
+
+/* ============================================
+   CHARITY PAGE
+   ============================================ */
+
+/* Impact stats banner — full-bleed dark, three numbers */
+.charity-impact {
+  background: #121212;
+  color: #fff;
+  padding: 5rem 0;
+  margin: 0 calc(50% - 50vw);
+  width: 100vw;
+}
+
+.charity-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  text-align: center;
+}
+
+.charity-stat__number {
+  font-size: 3.75rem; /* 60px UltraLight, hero-scale feature number */
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: #fff;
+  margin-bottom: 0.75rem;
+}
+
+.charity-stat__label {
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: #d9d9d9;
+  max-width: 260px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* Story two-col — CoCo's logo panel */
+.charity-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: #fff;
+  border: 1px solid #d8d8d8;
+  min-height: 280px;
+}
+
+.charity-logo img {
+  max-width: 260px;
+  height: auto;
+}
+
+/* LAU Cows feature — full-bleed dark panel with gif */
+.charity-cows {
+  background: #121212;
+  color: #fff;
+  padding: 6rem 0;
+  margin: 0 calc(50% - 50vw);
+  width: 100vw;
+}
+
+.charity-cows__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.charity-cows__image {
+  background: #1a1a1a;
+  padding: 1rem;
+  border: 1px solid #2a2a2a;
+}
+
+.charity-cows__image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.charity-cows__eyebrow {
+  color: #b09f65; /* designer accent gold */
+  margin-bottom: 0.5rem;
+}
+
+.charity-cows__title {
+  font-size: 2.5rem;
+  font-weight: 200;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.charity-cows__names {
+  font-size: 1.125rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: #d9d9d9;
+  margin-bottom: 1.5rem;
+}
+
+.charity-cows__signature {
+  font-style: italic;
+  color: #b09f65;
+  margin-top: 1.5rem;
+}
+
+/* News update block — centered, contained, feels like an editorial card */
+.charity-update {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+  background: #fff;
+  padding: 3rem 2.5rem;
+  border: 1px solid #d8d8d8;
+}
+
+.charity-update__badge {
+  display: inline-block;
+  background: #121212;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.charity-update__title {
+  font-size: 2.25rem;
+  font-weight: 200;
+  margin-bottom: 1rem;
+}
+
+.charity-update__lead {
+  font-size: 1rem;
+  color: #454545;
+  margin-bottom: 2rem;
+}
+
+.charity-update__image {
+  margin: 0 -1rem 2rem;
+}
+
+.charity-update__image img {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .charity-stats { grid-template-columns: 1fr; gap: 2rem; }
+  .charity-cows__inner { grid-template-columns: 1fr; gap: 2rem; }
 }
 
 /* Pages that jump straight into a .section (no dedicated hero element) need
