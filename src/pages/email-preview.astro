@@ -21,6 +21,16 @@ const bodyContent = bodyMatch ? bodyMatch[1] : emailHtml;
 // Pull the <style> block so the email's own CSS still applies
 const styleMatch = emailHtml.match(/<style[^>]*>([\s\S]*?)<\/style>/i);
 const styleContent = styleMatch ? styleMatch[1] : '';
+
+// Rewrite the hardcoded Netlify URLs to site-relative /email-assets/*.
+// The deliverable Mailchimp HTML needs the absolute URL (emails are sent
+// from Mailchimp's servers, not from our domain). But for the preview page
+// on localhost (or Netlify itself), we want the assets to load from the
+// same origin we're viewing from.
+const bodyContentLocal = bodyContent.replace(
+  /https:\/\/chic-peony-38af97\.netlify\.app\/email-assets\//g,
+  '/email-assets/'
+);
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -61,6 +71,6 @@ const styleContent = styleMatch ? styleMatch[1] : '';
     <span style="color: #888; font-weight: 300; text-transform: none; letter-spacing: 0;">Subject: "Spring refresh — new offers, new brows, new articles"</span>
     <a href="/">← Back to site</a>
   </div>
-  <div set:html={bodyContent} />
+  <div set:html={bodyContentLocal} />
 </body>
 </html>

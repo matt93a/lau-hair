@@ -409,9 +409,22 @@ p {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
   min-height: 400px;
+  max-height: 520px; /* cap hero so tall portraits don't blow up the page */
   max-width: 1200px;
   margin: 4.5rem auto 50px; /* 72px above (doubles header→hero gap), 50px below (→ ~90px to The Salon title) */
   padding: 0 2rem; /* match .container padding so image edge aligns with text below */
+}
+
+.salon-hero__carousel {
+  height: 100%;
+}
+
+/* "Tall" variant — for heros where the image is the subject and you want
+   to give it proper visual weight (e.g. a portrait-oriented shot).
+   Use on .salon-hero: <section class="salon-hero salon-hero--tall"> */
+.salon-hero--tall {
+  min-height: 560px;
+  max-height: 720px;
 }
 
 .page-title {
@@ -454,6 +467,7 @@ p {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top; /* portrait-friendly, faces visible, not chopped */
   display: block;
 }
 

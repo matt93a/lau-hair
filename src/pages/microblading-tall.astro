@@ -1,15 +1,26 @@
 ---
+// ALTERNATIVE microblading page — identical to /microblading.html but with
+// a taller hero (720px max instead of 520px), giving the Tamlin portrait
+// much more visual presence. Preserved as a separate URL so Matt can show
+// both options to Damon and pick.
+//
+// Everything else is identical to microblading.astro.
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const BOOKING_URL = 'https://s-iq.co/BookingPortal/dist/?salonid=144ab19c-0032-4459-b79d-126853a7c144&tab=book';
 ---
 <BaseLayout
-  title="Microblading Kent | Tamlin Lau at Lau Hairdressing"
+  title="Microblading Kent | Tamlin Lau at Lau Hairdressing (Tall hero variant)"
   description="Discover affordable microblading services starting at £300, including 6-week infills. Ideal for over-plucked, sparse, or non-existent eyebrows. Our treatment offers realistic hair strokes for a natural look, reshaping and adding volume to your brows. Enjoy long-lasting results up to 12 months. Say goodbye to daily makeup routines"
 >
+  <!-- FLOATING VARIANT BADGE so Matt can visually distinguish this page -->
+  <div style="position:fixed;top:84px;right:20px;z-index:999;background:#B09F65;color:#fff;padding:8px 14px;font-family:Montserrat,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+    Tall hero variant
+  </div>
+
   <div class="page-top">
-    <!-- HERO: matches salon-hero pattern — carousel-ready image left + dark quote right -->
-    <section class="salon-hero">
+    <!-- HERO: salon-hero pattern with --tall modifier for portrait height -->
+    <section class="salon-hero salon-hero--tall">
       <div class="salon-hero__carousel" data-carousel>
         <div class="salon-hero__slides" data-carousel-track>
           <div class="salon-hero__slide">
@@ -45,9 +56,9 @@ const BOOKING_URL = 'https://s-iq.co/BookingPortal/dist/?salonid=144ab19c-0032-4
           <a href="/visit.html" class="btn btn--outline">Your Visit</a>
         </div>
 
-        <!-- Compare link to tall variant — remove this once Matt + Damon pick one -->
+        <!-- Compare links -->
         <p style="margin-top:3rem;padding-top:2rem;border-top:1px solid #d8d8d8;font-size:0.875rem;color:#454545;">
-          <strong>Comparing variants:</strong>&nbsp; you're viewing the <strong>standard</strong> hero variant (520px).&nbsp; <a href="/microblading-tall.html" style="color:#000;">View the tall variant (720px) →</a>
+          <strong>Comparing variants:</strong>&nbsp; you're viewing the <strong>tall</strong> hero variant (720px).&nbsp; <a href="/microblading.html" style="color:#000;">View the standard variant (520px) →</a>
         </p>
       </div>
     </section>
