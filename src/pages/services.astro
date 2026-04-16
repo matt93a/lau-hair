@@ -50,7 +50,7 @@ const colour = [
             <a href="/contact.html" class="btn btn--outline">Contact</a>
           </div>
           <div>
-            <img src="/images/home-hero.png" alt="Professional styling at Lau Hairdressing" class="img-cover" />
+            <img src="/images/services/services-hero.jpg" alt="Styled hair — Lau Hairdressing" class="img-cover" />
           </div>
         </div>
       </div>
@@ -61,7 +61,7 @@ const colour = [
       <div class="container">
         <div class="two-col two-col--align-center">
           <div>
-            <h2 class="text-bold mb-3">Salon Hours</h2>
+            <h2 class="page-title mb-3">Salon Hours</h2>
             <table class="footer-hours mb-3">
               <tr><td>Mon</td><td>Closed</td></tr>
               <tr><td>Tue</td><td>9:30 - 8pm</td></tr>
@@ -85,11 +85,11 @@ const colour = [
       <div class="container">
         <div class="two-col">
           <div>
-            <h2 class="text-bold mb-1">Service Menu</h2>
-            <h3 class="subheading text-bold mb-3">Pricing Structure</h3>
+            <h2 class="page-title mb-1">Service Menu</h2>
+            <h3 class="subheading mb-3">Pricing Structure</h3>
             <p class="mb-3">Our prices reflect the experience levels of our stylists in our team. All listed prices are a guide for each tailored service. Check out our Stylists Page for more information or just ask in salon.</p>
 
-            <h3 class="text-bold mb-2">Cuts</h3>
+            <h3 class="pricing-category mb-2">Cuts</h3>
             <table class="service-table mb-3">
               {cuts.map(row => row
                 ? <tr><td>{row[0]}</td><td>{row[1]}</td></tr>
@@ -98,7 +98,7 @@ const colour = [
             </table>
             <p class="note mb-3">Children's appointments Monday to Friday only. Luxury Gift Vouchers available.</p>
 
-            <h3 class="text-bold mb-2">Colour & Treatments</h3>
+            <h3 class="pricing-category mb-2">Colour & Treatments</h3>
             <table class="service-table mb-3">
               {colour.map(([name, price]) => (
                 <tr><td>{name}</td><td>{price}</td></tr>
@@ -111,7 +111,7 @@ const colour = [
             </div>
           </div>
           <div>
-            <img src="/images/salon/interior.jpg" alt="Lau Hairdressing salon interior" />
+            <img src="/images/services/services-scissors.jpg" alt="Professional hairdressing scissors" />
           </div>
         </div>
       </div>

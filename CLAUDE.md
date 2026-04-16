@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Rebuilding the website for **Lau Hairdressing** (lau-hair.com), a hair salon at 13 Gabriel's Hill, Maidstone, Kent ME15 6HL, owned by **Damon Lau**. The site is **flat HTML/CSS** (no CMS, no frameworks). Matt Pickup (TME Digital / Bridges Ltd) maintains this.
+Rebuilding the website for **Lau Hairdressing** (lau-hair.com), a hair salon at 13 Gabriel's Hill, Maidstone, Kent ME15 6HL, owned by **Damon Lau**. The site is an **Astro 5 static site** — shared components + page templates that compile to plain static HTML in `dist/`. Matt Pickup (TME Digital / Bridges Ltd) maintains this.
 
 **GitHub:** matt93a/lau-hair
 **Live domain:** lau-hair.com
@@ -20,11 +20,17 @@ Key designer assets that are now integrated into `images/`:
 
 ## Tech Stack
 
-- **HTML/CSS only** - no build tools, no frameworks, no CMS
+- **Astro 5.x** — static output (`output: "static"`, `build.format: "file"` so URLs stay `/salon.html` not `/salon/`)
+- **Components:** `src/layouts/BaseLayout.astro` + `src/components/{Header,MobileNav,Footer}.astro` — edit once, all pages rebuild
+- **Pages:** one `.astro` file per route in `src/pages/`; each extends `BaseLayout` with title/description/canonical + unique body
+- **Static assets:** `public/` is copied to `dist/` unchanged (CSS, images, robots.txt, sitemap.xml, favicon)
+- **CSS:** single `public/css/style.css` — BEM-ish classes, utility classes, no scoped component styles (yet)
 - **Font:** Montserrat via Google Fonts CDN (weights: 200, 300, 400, 700)
-- **Responsive:** Mobile-first with breakpoints at 480px, 768px, 1024px
+- **Responsive:** Mobile-first with breakpoints at 768px, 1050px, 1300px
 - **Booking:** All "Book now" buttons link to external S-IQ portal
-- **Deployment:** Netlify auto-deploy from GitHub main branch
+- **Build:** `npm run build` → outputs `dist/`; `npm run dev` for HMR; `npm run preview` to serve the build
+- **Deployment:** Netlify auto-deploy from GitHub `main`; `netlify.toml` pins Node 24, runs `npm run build`, publishes `dist/`
+- **Node version:** 24 required (pinned in netlify.toml, matches local)
 
 ## Key URLs & Credentials
 
@@ -96,20 +102,25 @@ Children's appointments Monday to Friday only. Luxury Gift Vouchers available.
 
 ## Site Structure
 
+Source lives in `src/pages/` as `.astro` files; each compiles to the `.html` route shown:
+
 ```
-index.html          - Homepage (dark header, artwork hero, Schema.org)
-salon.html          - Our Salon (ethos, heritage, hours)
-visit.html          - Your Visit (consultation info)
-stylists.html       - Your Stylists (7 team + hiring card grid)
-services.html       - Our Services (full pricing tables)
-microblading.html   - Microblading (Tamlin Lau, hiring banner)
-charity.html        - Charity (CoCo's Foundation cows)
-contact.html        - Contact (phone, email, what3words, hours)
-careers.html        - Vacancies (students + experienced stylists)
-terms.html          - Terms & Conditions (9 sections)
-privacy.html        - Privacy & Cookie Policy
-cancellations.html  - 48hr cancellation policy
+src/pages/index.astro          → /index.html          (dark header, artwork hero, Schema.org)
+src/pages/salon.astro          → /salon.html          (ethos, heritage, hours, hero carousel)
+src/pages/visit.astro          → /visit.html          (consultation info)
+src/pages/stylists.astro       → /stylists.html       (7 team + hiring card grid)
+src/pages/services.astro       → /services.html       (intro + salon hours + dark pricing menu)
+src/pages/microblading.astro   → /microblading.html   (Tamlin Lau, hiring banner)
+src/pages/charity.astro        → /charity.html        (CoCo's Foundation cows)
+src/pages/contact.astro        → /contact.html        (phone, email, what3words, hours)
+src/pages/careers.astro        → /careers.html        (students + experienced stylists)
+src/pages/terms.astro          → /terms.html          (9 sections)
+src/pages/privacy.astro        → /privacy.html        (Privacy & Cookie Policy)
+src/pages/cancellations.astro  → /cancellations.html  (48hr policy)
+src/pages/landing.astro        → /landing.html        (minimal cover variant — framed painting)
 ```
+
+Plus a local-only `public/designs.html` (gitignored) that scroll-views all 6 designer mockup PNGs for reference.
 
 ## Design Conventions
 
@@ -121,11 +132,16 @@ cancellations.html  - 48hr cancellation policy
 
 ## How to Make Common Edits
 
-- **Change a price:** Edit the relevant `<td>` in services.html
-- **Add/remove a stylist:** Edit `.stylists-grid` in stylists.html
-- **Update opening hours:** Footer of EVERY page + visit.html + services.html + salon.html + Schema.org in index.html
-- **Change the booking URL:** Search and replace the S-IQ URL across all files
-- **Add a new page:** Copy any existing page header/footer, change title, meta, canonical, body content
+- **Change a price:** Edit the `cuts` or `colour` arrays in `src/pages/services.astro` frontmatter
+- **Add/remove a stylist:** Edit the `stylists` array in `src/pages/stylists.astro` frontmatter
+- **Update opening hours:** Two places now — `src/components/Footer.astro` (global footer on every page) + the inline `<table>` on `src/pages/salon.astro`, `src/pages/visit.astro`, `src/pages/services.astro`, `src/pages/contact.astro`, `src/pages/cancellations.astro` + Schema.org JSON-LD inline in `src/pages/index.astro`
+- **Change the booking URL:** Update the `BOOKING_URL` constant in each `.astro` file that uses it (`Header.astro`, plus most `src/pages/*.astro`)
+- **Change the phone number:** `src/components/Header.astro`, `src/components/MobileNav.astro`, `src/components/Footer.astro`, and any page that hard-codes it in body copy
+- **Update the nav links:** Edit the `navLinks` array in `src/components/Header.astro` AND `src/components/MobileNav.astro` (both exist because the overlay is a sibling, not a child, of the header)
+- **Add a new page:** Create `src/pages/<name>.astro`, wrap body in `<BaseLayout title="..." description="...">...</BaseLayout>` — header, footer, mobile-nav, meta, canonical are all handled by the layout
+- **Apply a design change site-wide:** Edit `public/css/style.css` by class — there are no page-scoped overrides except where explicitly noted (e.g., `.salon-hero`); changes to `.page-title`, `.subheading`, `.btn-group`, etc. propagate to every page
+
+After any edit, run `npm run build` (or rely on `npm run dev` HMR) to regenerate `dist/`.
 
 ## SEO Target Keywords
 
