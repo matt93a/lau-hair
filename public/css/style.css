@@ -998,8 +998,11 @@ p {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr; /* image wider than quote panel per designer */
   max-height: 500px;
+  max-width: 1200px;
+  margin: 4.5rem auto 50px; /* match salon-hero breathing room */
+  padding: 0 2rem; /* image edge aligns with text below */
 }
 
 .hero-grid__image {
@@ -1340,10 +1343,21 @@ p {
   margin: 0 auto;
 }
 
-/* Page top spacing for fixed header; bottom pad creates breathing room before footer */
+/* Page top spacing for fixed header; bottom pad creates breathing room before footer.
+   Used as a WRAPPER <div> containing all page content on salon, visit, stylists,
+   services, microblading, careers. */
 .page-top {
   padding-top: 80px;
   padding-bottom: 10rem;
+}
+
+/* Title-only header block at the top of pages where the h1 stands alone
+   above separate content sections (charity, contact, terms, privacy,
+   cancellations). Positions the title below the fixed header without the
+   huge 10rem footer buffer .page-top adds. */
+.page-header {
+  padding-top: 120px; /* 80px for fixed header + 40px visual breathing room */
+  padding-bottom: 1.5rem;
 }
 
 /* Pages that jump straight into a .section (no dedicated hero element) need
