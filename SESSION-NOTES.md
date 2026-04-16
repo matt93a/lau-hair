@@ -1,81 +1,103 @@
-# Session Notes — 2026-04-16
+# Session Notes — 2026-04-16 (updated)
 
 **Pick-up instructions for the next Claude instance.**
-Read this **after** `CLAUDE.md` and `HANDOVER.md` (both still accurate for baseline context).
+Read this **after** `CLAUDE.md` (now reflects the Astro migration) and optionally skim `HANDOVER.md` for old context.
 
 ---
 
-## Where we are
+## Where we are now
 
-Matt (owner) returned from the other PC, cloned the repo fresh to `C:\Users\mp\Desktop\Claude\lau-hair\`, and we're now mid-audit of the whole site against the designer's mockups.
+The site is **live on Netlify** (chic-peony-38af97.netlify.app, auto-deploys from GitHub `main`). We went through several big phases today:
 
-### New on this PC (all already installed)
-- Node.js 24.15.0 at `C:\Program Files\nodejs\` — **not on Claude Code's inherited PATH**; invoke with the full path or via `.claude/start-preview.cmd`
-- Poppler 25.07.0 for PDF rendering — same PATH caveat, binaries at `C:\Users\mp\AppData\Local\Microsoft\WinGet\Packages\oschwartz10612.Poppler_Microsoft.Winget.Source_8wekyb3d8bbwe\poppler-25.07.0\Library\bin\`
-- Git identity **NOT yet set** — need `git config user.name "Matt Pickup"` + `git config user.email "matt93a@users.noreply.github.com"` before first commit
-- Netlify live at **https://chic-peony-38af97.netlify.app/** (auto-deploys from `main`)
+1. **Audit pass on salon.html** (flat HTML era) — colour tokens, spacing, dots nav, hero carousel, image edge alignment, fonts
+2. **Site-wide audit pass** — nav handlers + `.page-title` H1s + responsive breakpoints across all 11 other pages
+3. **Migrated the entire site from flat HTML to Astro 5** — commit `b63b916`. Safety branch `pre-astro-migration` pinned at the pre-migration commit `c36c96b` for rollback
+4. **Salon touch-ups on the Astro site** — hero margin, page-title to 72px then 50px then 40px (Matt settled on 40)
+5. **Stylists audit pass** — heading/subheading sizes, quote panel tokens, 60/40 intro split, swapped baby-placeholder photos for live-site portraits
+6. **Services audit pass 1** (my most recent work while Matt was out) — replaced wrong images with designer's male-model portrait + black scissors; brought heading sizes in line with the Sketch typography scale (40 / 20 / 14)
 
-### Preview server
-- Local preview config at `C:\Users\mp\Desktop\Claude\.claude\launch.json` (one level up from this repo, since that's Claude Code's CWD)
-- Starts via `preview_start` MCP with name `lau-hair` — wrapper at `.claude/start-preview.cmd`
-- After a restart the port will be free. If a stale http-server ever clings to :8080, kill via `taskkill //F //PID <pid>` (find pid with `netstat -ano | grep ":8080.*LISTEN"`)
+**Latest commit:** `af80793` — all on `main`, pushed to GitHub, Netlify deploying.
 
 ---
 
-## What was done this session
+## Architecture (post-migration)
 
-1. **Set up the whole new-PC environment** — see HANDOVER § 9. All done except git identity.
-2. **Connected Netlify** to the repo (done by Matt through the UI).
-3. **Rendered the designer's PDF flow** to PNGs at `designer-assets/mockup-pngs/page-{1..6}.png` for visual reference.
-4. **Built a new page: `landing.html`** — the minimal "cover" variant the designer showed on page 1 of the PDF. Matt wants this as an ADDITIONAL page, not replacing `index.html`. Uses new CSS classes: `.site-header--minimal`, `.landing-body`, `.landing-hero` (+ `__frame`, `__painting`, `__dim`, `__overlay`, `__cta`, `__signature`). All new CSS is at the bottom of `css/style.css`.
-5. **Extracted the Sketch source file** to `designer-assets/sketch-extracted/` and wrote a Node parser at `designer-assets/extract-tokens.mjs` that produces `docs/design-tokens.md` — precise hex codes, typography scale, and per-page layer/text summaries.
+- **Astro 5.x** static build (`output: 'static'`, `build.format: 'file'` so URLs stay `/salon.html` not `/salon/`)
+- `src/layouts/BaseLayout.astro` — HTML skeleton, head, fonts, GA placeholder, renders header/footer/mobile-nav
+- `src/components/Header.astro` + `MobileNav.astro` + `Footer.astro` — single-source-of-truth for nav, hours, address, socials. **Edit once → every page updates on next build.**
+- `src/pages/*.astro` — one per route (13 pages incl. `landing.astro`). Each wraps its unique body in `<BaseLayout>`.
+- `public/` — static assets (css/, images/, robots.txt, sitemap.xml, favicon) copied to `dist/` unchanged on build.
+- **Styles still live in one file:** `public/css/style.css`. No scoped component styles yet. BEM-ish + utility classes.
+- `netlify.toml` pins Node 24, runs `npm run build`, publishes `dist/`.
 
-### Uncommitted changes (localhost-only, NOT on Netlify yet)
-- `landing.html` (new file)
-- `css/style.css` (landing-page additions at bottom)
-- `docs/design-tokens.md` (generated from Sketch)
-- `designer-assets/extract-tokens.mjs` (the parser — lives inside gitignored folder so won't be committed)
-- `designer-assets/sketch-extracted/` + `designer-assets/mockup-pngs/` (both inside the gitignored folder)
+### Local preview
 
----
+- `.claude/launch.json` (in `C:\Users\mp\Desktop\Claude\.claude\`, one level up) runs `.claude/start-preview.cmd`
+- That script now does `npm run build` then `http-server dist -p 8080`
+- **Faster dev loop:** `npm run dev` for HMR — but you'll need to point your browser at the Astro dev port (typically 4321) instead of :8080
 
-## Key findings from the Sketch file (full detail in `docs/design-tokens.md`)
+### Node PATH caveat (still true)
 
-- **Primary palette:** `#000000` (black), `#FFFFFF` (white), `#121212` (very-dark section bg), `#454545` (mid-grey text), `#D9D9D9` (light-grey), `#E5E5E5` / `#D8D8D8` (light backgrounds). One accent: `#B09F65` (gold/tan, 1× use).
-- **Typography:** Montserrat only — **body is 14px** (Regular/Bold/Light), **big headers are 56px UltraLight**, subheadings 20px Light, small captions 12px / 11.1px Light.
-- **Artboard sizes:** Home = 1920×1080 (single viewport — cover page). Other pages ~1920×2200–2600 (scrolling content).
-
-Our current CSS is close on typography (`h1: clamp(2rem, 5vw, 3.5rem)` ≈ 56px; body `0.9rem` ≈ 14.4px) but we should lock to exact values from the design tokens when we audit each page.
+Node 24.15 lives at `C:\Program Files\nodejs\` and is **not** on Claude Code's inherited PATH. Every `npm` call needs either the full path (`"C:\Program Files\nodejs\npm.cmd" ...`) or a PATH export (`export PATH="/c/Program Files/nodejs:$PATH"`) before running.
 
 ---
 
-## What Matt said he wants (in priority order)
+## Design standards that are now locked in
 
-1. **Audit every page against the designer mockups.** He believes the site is "not right yet" despite the previous Claude marking everything ✅. Work through page by page.
-2. Landing page is an **extra page**, not the homepage. He's not sure the minimal version is right for `index.html` itself.
-3. The nav on the landing was originally hamburger lines + no unfold animation. Fixed to vertical dots ⋮ + staggered cascade unfold. Scoped via `.site-header--minimal` so existing pages are untouched.
-4. Work on localhost (fast), push to Netlify when we want him to view on his phone or show Damon.
+| Thing | Value | Where |
+|---|---|---|
+| Body bg | `#E5E5E5` | `body`, `.section--light` |
+| Footer bg | `#FFFFFF` | `.site-footer` |
+| Dark panel bg | `#121212` | `.quote-block`, `.stylists-quote` |
+| Body text | Montserrat 14.4px, weight 300, line-height 1.5 | `body`, `p` |
+| Page title (H1) | **40px flat** Montserrat UltraLight (weight 200) | `.page-title` — used on EVERY page, same size everywhere |
+| Sub-section heading (Cuts / Colour & Treatments type) | 20px Montserrat Light | `.pricing-category` — new utility added in services pass |
+| Subheading (small bold) | 14px Montserrat Bold | `.subheading` |
+| Section padding | 40px top/bottom | `.section` |
+| Nav→content gap on non-hero pages | ~82px (from `.page-top > .section:first-child { margin-top: 2rem }`) | rule in style.css |
+| Header "Book now" | Black bg + white text on light header (`btn--primary`); outline-white on dark header | `Header.astro` |
+| Paragraph → buttons | 48px margin-top on `.btn-group` (total ~62px visible over p margin) | `.btn-group` |
 
-### Open decisions from Matt
-- **Commit or not yet?** Landing page + CSS + design-tokens.md are uncommitted. He hasn't decided whether to push this batch to Netlify yet or keep iterating more first.
-- **What to audit first?** When we left off he was about to choose: homepage vs salon vs walk-all-6-mockups-first vs dictate-specific-problems.
+**Important:** Matt wants unified tokens — "agreed" values propagate to every page via class. Avoid page-scoped overrides unless there's a clear design reason. (See `feedback_unified_design_tokens.md` memory.)
 
----
-
-## Immediate next actions for next Claude
-
-1. Reload context: read `CLAUDE.md`, `HANDOVER.md`, and this file.
-2. Check `docs/design-tokens.md` exists and is populated (if not, re-run: `"C:\Program Files\nodejs\node.exe" designer-assets/extract-tokens.mjs`).
-3. Start http-server via `preview_start` with name `lau-hair`.
-4. Ask Matt what he wants next — likely: "commit what we have, then audit `index.html` against Sketch page 'Home' (the 1920×1080 cover) and page 'Home' in Main Flow (the 1920×~1700 with SEO content below)."
-5. For audits: use the specific artboard sections of `docs/design-tokens.md` for exact colour + typography values. Reference the PNG mockups in `designer-assets/mockup-pngs/` for visual comparison.
-
-### Gotchas carried forward from the HANDOVER
-- `preview_screenshot` output is frequently cropped/misleading at desktop widths — **always verify with `preview_inspect` or `preview_eval` DOM measurements** before concluding anything is broken.
-- Port 8080 can leak on http-server — kill orphan PIDs if preview_start errors.
-- Hours appear in 5 places (footer ×all, visit.html, services.html, salon.html body, Schema.org JSON-LD in index.html) — any hours edit must sync all five.
-- Git CRLF warnings on every commit are harmless — don't touch `core.autocrlf`.
+**Also:** quote spacing/sizes in **pixels**, not rem/% — Matt tunes things by saying "make it 60". (See `feedback_pixel_measurements.md` memory.)
 
 ---
 
-**Matt is about to restart Claude Code.** When he does: this file, `docs/design-tokens.md`, `landing.html`, and the `designer-assets/` artefacts all persist. The chat history and running http-server will not.
+## Outstanding for Matt's review
+
+### Services page — things he should look at
+- [ ] **Intro image on services.html** now uses the designer's male model portrait (light blonde hair, black sweater). Previously it was `home-hero.png` (a female portrait). If Matt wants the female one back, revert `src/pages/services.astro` line with `services-hero.jpg` → `home-hero.png`.
+- [ ] **Dark-section image** now uses the designer's hanging-black-scissors shot (`services-scissors.jpg` from the Sketch file). Previously salon interior. Designer clearly intended scissors per the mockup.
+- [ ] **"Service Menu" and "Salon Hours" headings** now render at `.page-title` (40px UltraLight) matching "Our Services". Matt may want them smaller/different.
+- [ ] **"Cuts" and "Colour & Treatments"** now use new `.pricing-category` class (20px Light) instead of default bold h3 (25.6px bold). Cleaner and quieter — designer tokens don't have a tier between 40 and 20px.
+
+### Pending questions Matt hasn't answered
+- [ ] Stylists 8th card — keep "We're hiring" (confirmed ✓, done) — Dan's portrait downloaded to `public/images/stylists/dan.jpg` but NOT currently displayed. Add Dan as an 8th stylist + 9-cell grid (3×3)? Or leave.
+- [ ] Homepage (index.html) audit — deferred as high-risk; not yet touched vs designer mockup
+- [ ] Visit.html + Microblading.html audits — migrated but not audited yet
+- [ ] What are the `< >` circular arrows on the far left/right viewport edges of the salon mockup? Possibly carousel chrome for something bigger. Not implemented.
+
+### Known content gaps (Matt/client task, not code)
+- [ ] Proper adult photos for stylists already fetched from live site — but if he wants NEW styled portraits matching the designer mockup (colour stylised, consistent), that's a photoshoot task
+- [ ] Real GA4 Measurement ID (currently `G-XXXXXXXXXX` placeholder in BaseLayout.astro)
+- [ ] Confirm microblading pricing with Tamlin
+
+---
+
+## Next page to audit
+
+Matt's rolling order so far: Salon → Stylists → Services (just done). Likely next: **Visit** (similar two-col pattern, should be quick) → **Microblading** → **Homepage** (save for last, biggest visual territory).
+
+---
+
+## Git / rollback
+
+- `main` → `af80793` (current, everything above)
+- `pre-astro-migration` → `c36c96b` (backup branch, flat HTML pre-Astro)
+- `git reset --hard c36c96b` if the Astro site needs to be abandoned — though Netlify would still try to build Astro unless `netlify.toml` is removed too
+
+### Gotchas still carried forward
+- `preview_screenshot` timed out earlier in the day; if it hangs again, DOM inspection via `preview_inspect` + `preview_eval` is the reliable verification path
+- Git CRLF warnings on every commit are harmless — don't touch `core.autocrlf`
+- The "baby photo" stylist images turned out to be actual baby photos (stylists as babies, possibly intentional). Replaced during the stylists audit with current live-site adult portraits.
