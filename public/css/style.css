@@ -917,9 +917,14 @@ p {
 
 .stylists-intro {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr; /* text column wider than quote per designer */
   gap: 3rem;
   align-items: center;
+}
+
+/* Scope the page-title smaller on stylists (designer: ~48px not 72px) */
+.stylists-intro .page-title {
+  font-size: clamp(2rem, 4vw, 3rem);
 }
 
 .stylists-intro__left {
@@ -938,16 +943,16 @@ p {
 }
 
 .stylists-quote {
-  background: #1a1a1a;
+  background: #121212; /* designer token, matches .quote-block */
   color: #fff;
   padding: 3rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   min-height: 300px;
-  font-size: 1rem;
-  font-weight: 200;
-  line-height: 1.8;
+  font-size: 1.25rem; /* 20px per designer spec */
+  font-weight: 300; /* Montserrat Light */
+  line-height: 1.5;
   font-style: italic;
   text-align: center;
 }

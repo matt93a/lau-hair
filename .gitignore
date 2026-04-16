@@ -19,3 +19,7 @@ dist/
 .env
 .env.production
 .env.development
+
+# Local-only designer reference viewer (mockup PNGs are too big for git)
+public/designs/
+public/designs.html
