@@ -56,6 +56,86 @@ p {
 }
 
 /* ============================================
+   RECRUITING BANNER (above header, toggleable)
+   ============================================ */
+
+.recruiting-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001; /* above .site-header (1000) */
+  background: #B09F65;
+  color: #fff;
+}
+
+.recruiting-banner__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 8px 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+}
+
+.recruiting-banner__text {
+  font-weight: 300;
+}
+
+.recruiting-banner__text strong {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.recruiting-banner__link {
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  border-bottom: 1px solid rgba(255,255,255,0.4);
+  padding-bottom: 1px;
+  transition: border-color 0.2s;
+}
+
+.recruiting-banner__link:hover {
+  border-color: #fff;
+}
+
+/* Push everything down when the banner is present */
+.has-recruiting-banner .site-header {
+  top: 34px; /* banner height */
+}
+
+.has-recruiting-banner .page-top {
+  padding-top: 114px; /* 80px normal + 34px banner */
+}
+
+.has-recruiting-banner .page-header {
+  padding-top: 154px; /* 120px normal + 34px banner */
+}
+
+.has-recruiting-banner .mobile-nav {
+  top: 94px; /* 60px header + 34px banner */
+}
+
+@media (max-width: 620px) {
+  .recruiting-banner__inner {
+    flex-direction: column;
+    gap: 4px;
+    padding: 6px 1rem;
+    text-align: center;
+  }
+}
+
+/* ============================================
    HEADER / NAVIGATION
    ============================================ */
 
@@ -923,6 +1003,16 @@ p {
   padding-left: 1rem;
 }
 
+/* Tighter variant — rows closer together, matching the designer's compact layout */
+.salon-hours-table--tight td {
+  padding: 0.15rem 0;
+  font-size: 0.8rem;
+}
+
+.salon-hours-table--tight td:first-child {
+  color: #000;
+}
+
 .salon-hours-buttons {
   display: flex;
   gap: 1rem;
@@ -1568,6 +1658,69 @@ p {
    first section that matches salon's hero margin (~82px total). */
 .page-top > .section:first-child {
   margin-top: 2rem;
+}
+
+/* ============================================
+   CAREERS PAGE
+   ============================================ */
+
+.careers-hero {
+  background: #121212;
+  color: #fff;
+  padding-top: 160px; /* 80px header + 34px banner + breathing room */
+  padding-bottom: 80px;
+}
+
+.has-recruiting-banner .careers-hero {
+  padding-top: 194px; /* extra 34px for banner */
+}
+
+.careers-hero__inner {
+  max-width: 700px;
+}
+
+.careers-hero__eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #B09F65;
+  margin-bottom: 0.75rem;
+}
+
+.careers-hero__title {
+  font-size: 2.5rem;
+  font-weight: 200;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.careers-hero__lead {
+  font-size: 1.1rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: #d9d9d9;
+  margin: 0;
+}
+
+/* Vacancy cards */
+.careers-card {
+  background: #fff;
+  border: 1px solid #d8d8d8;
+  padding: 2.5rem;
+  position: relative;
+}
+
+.careers-card__badge {
+  display: inline-block;
+  background: #B09F65;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  margin-bottom: 1.25rem;
 }
 
 /* ============================================

@@ -16,27 +16,32 @@ const BOOKING_URL = 'https://s-iq.co/BookingPortal/dist/?salonid=144ab19c-0032-4
             <h1 class="page-title text-light">Your Visit</h1>
             <h2 class="subheading"><strong>The Consultation</strong></h2>
 
-            <p>At Lau, we provide a professional consultation service designed to elevate your salon experience. Whether it's a special occasion or a regular haircut, our passionate team will create a unique and personalised hairstyle that perfectly suits your individuality. We take the time to understand your preferences, hair texture, and personal style, ensuring that every detail aligns with your vision. Our goal is to go beyond the ordinary, offering a service that leaves you feeling refreshed, confident, and truly pampered.</p>
+            <p>At Lau, we provide a professional Consultation service designed to elevate your salon experience. Whether it's a special occasion or a regular haircut, our passionate team will create a unique and personalised hairstyle that perfectly suits your individuality. We take the time to understand your preferences, hair texture, and personal style, ensuring that every detail aligns with your vision. Our goal is to go beyond the ordinary, offering a service that leaves you feeling refreshed, confident, and truly pampered.</p>
 
             <p>We start by analysing your face shape and teaching you how to enhance your best features with simple styling techniques. Our expert stylists will guide you through the best cuts, colours, and treatments to complement your natural beauty. We take into account your lifestyle and time constraints to provide you with at-home instructions on how to achieve the same results as your personal hairstylist in the salon. We want you to enjoy effortlessly stunning hair every day, with techniques and product recommendations tailored just for you.</p>
 
             <p>Join us on this journey of self-expression and confidence, and let us help you look and feel your best, 365 days of the year! Every visit to Lau is more than just a haircut - it's an escape where YOU are the focus. From the moment you step into our salon, expect an experience that rejuvenates your hair, enhances your style, and leaves you feeling empowered long after you leave.</p>
 
-            <a href="/stylists.html" class="btn btn--outline">Our Stylists</a>
+            <div class="btn-group">
+              <a href="/stylists.html" class="btn btn--outline">Our Stylists</a>
+            </div>
 
+            <!-- SALON HOURS — content from designer mockup -->
             <div class="salon-hours-section mt-4">
               <h3 class="subheading">Salon Hours</h3>
-              <table class="salon-hours-table">
+              <p>We are open late nights on Tuesdays and Fridays (see below). Early morning appointments are from 8am on Saturdays. The salon is closed on Sundays and Mondays. Bookings can be made by calling <strong>01622 670 557</strong> during salon hours or 24/7 via online booking.</p>
+
+              <table class="salon-hours-table salon-hours-table--tight">
                 <tr><td>Mon</td><td>Closed</td></tr>
                 <tr><td>Tue</td><td>9:30 - 8pm</td></tr>
-                <tr><td>Wed</td><td>9 - 6pm</td></tr>
-                <tr><td>Thu</td><td>9 - 6pm</td></tr>
+                <tr><td>Wed</td><td>9am - 6pm</td></tr>
+                <tr><td>Thu</td><td>9am - 6pm</td></tr>
                 <tr><td>Fri</td><td>9:30 - 7pm</td></tr>
-                <tr><td>Sat</td><td>8 - 5pm</td></tr>
+                <tr><td>Sat</td><td>8am - 5pm</td></tr>
                 <tr><td>Sun</td><td>Closed</td></tr>
               </table>
 
-              <div class="salon-hours-buttons mt-3">
+              <div class="btn-group">
                 <a href={BOOKING_URL} class="btn btn--primary" target="_blank" rel="noopener">Book now</a>
                 <a href="/contact.html" class="btn btn--outline">Find us</a>
               </div>

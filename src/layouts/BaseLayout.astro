@@ -2,6 +2,13 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import MobileNav from '../components/MobileNav.astro';
+import RecruitingBanner from '../components/RecruitingBanner.astro';
+
+// ─── GLOBAL TOGGLE ───────────────────────────────────────────────
+// Flip this to true to show the "We're hiring" gold banner sitewide.
+// Flip to false to hide it — no code change on any page needed.
+const SHOW_RECRUITING_BANNER = true;
+// ─────────────────────────────────────────────────────────────────
 
 export interface Props {
   title: string;
@@ -23,6 +30,8 @@ const {
   headerVariant = 'default',
   bareChrome = false,
 } = Astro.props as Props;
+
+const showBanner = !bareChrome && SHOW_RECRUITING_BANNER;
 
 // Derive canonical if not provided: strip .html from pathname, prefix with site
 const pathname = Astro.url.pathname.replace(/\/index\.html$/, '/').replace(/\.html$/, '.html');
@@ -66,7 +75,8 @@ const fullCanonical = canonical ?? `https://www.lau-hair.com${pathname}`;
 
     <slot name="head" />
   </head>
-  <body class={bodyClass}>
+  <body class={[bodyClass, showBanner ? 'has-recruiting-banner' : ''].filter(Boolean).join(' ')}>
+    <RecruitingBanner show={showBanner} />
     {!bareChrome && <Header variant={headerVariant} />}
     <slot />
     {!bareChrome && <MobileNav />}

@@ -1,0 +1,20 @@
+---
+// Recruiting banner — sits above the fixed header on every page.
+// Toggle on/off by changing the `show` prop in BaseLayout.astro.
+// When off, renders nothing — no DOM, no spacing.
+export interface Props {
+  show?: boolean;
+}
+
+const { show = false } = Astro.props as Props;
+---
+{show && (
+  <div class="recruiting-banner">
+    <div class="recruiting-banner__inner">
+      <span class="recruiting-banner__text">
+        <strong>We're hiring!</strong> &nbsp;Lau Hairdressing is recruiting experienced stylists to join our team.
+      </span>
+      <a href="/careers.html" class="recruiting-banner__link">View Stylist Positions &rarr;</a>
+    </div>
+  </div>
+)}
