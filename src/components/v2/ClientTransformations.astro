@@ -1,0 +1,28 @@
+---
+// Client transformations — before/after pairs.
+// Two layout options pending mockup: side-by-side, or drag-to-reveal.
+// STATUS: scaffold — final imagery and chosen layout post-mockup.
+
+const transformations = [
+  { id: 1, before: '/images/v2/transformations/1-before.jpg', after: '/images/v2/transformations/1-after.jpg', label: 'Balayage transformation' },
+  { id: 2, before: '/images/v2/transformations/2-before.jpg', after: '/images/v2/transformations/2-after.jpg', label: 'Colour correction' },
+  { id: 3, before: '/images/v2/transformations/3-before.jpg', after: '/images/v2/transformations/3-after.jpg', label: 'Cut and finish' },
+  { id: 4, before: '/images/v2/transformations/4-before.jpg', after: '/images/v2/transformations/4-after.jpg', label: 'Brunette gloss' },
+];
+---
+<section class="transformations" aria-label="Real client transformations">
+  <header class="transformations__header">
+    <h2 class="transformations__title">Real Client Transformations</h2>
+  </header>
+  <div class="transformations__grid">
+    {transformations.map((t) => (
+      <figure class="transformation" data-transformation={t.id}>
+        <div class="transformation__pair">
+          <img class="transformation__image transformation__image--before" src={t.before} alt={`${t.label} – before`} loading="lazy" />
+          <img class="transformation__image transformation__image--after"  src={t.after}  alt={`${t.label} – after`}  loading="lazy" />
+        </div>
+        <figcaption class="transformation__caption">{t.label}</figcaption>
+      </figure>
+    ))}
+  </div>
+</section>

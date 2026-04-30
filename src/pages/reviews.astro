@@ -1,0 +1,47 @@
+---
+// /reviews page — masonry-style grid of all Google + Facebook reviews.
+// No filters. Light, airy, premium.
+// STATUS: scaffold — final styling + live API data post-mockup.
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import fallback from '../data/reviews-fallback.json';
+
+const reviews = fallback.reviews || [];
+const avg = fallback.rating || 5.0;
+const total = fallback.user_ratings_total || 0;
+---
+<BaseLayout
+  title="Reviews — Lau Hairdressing, Maidstone"
+  description="Real reviews from Lau Hairdressing clients in Maidstone."
+  bodyClass="page-reviews"
+>
+  <link rel="stylesheet" href="/css/v2.css" slot="head" />
+
+  <main class="reviews-page page-top">
+    <header class="reviews-page__header">
+      <h1 class="reviews-page__title">What Our Clients Say</h1>
+      <p class="reviews-page__average">
+        <strong>{avg.toFixed(1)} ★</strong> from {total > 0 ? `${total}+ reviews` : 'our happy clients'}
+      </p>
+      <a class="btn btn--primary" href="https://search.google.com/local/writereview?placeid=cid:11278767179397682494" target="_blank" rel="noopener">
+        Leave a review
+      </a>
+    </header>
+
+    <div class="reviews-page__masonry">
+      {reviews.map((r) => (
+        <article class="review-card">
+          <div class="review-card__rating" aria-label={`${r.rating} out of 5 stars`}>
+            {'★'.repeat(Math.round(r.rating))}{'☆'.repeat(5 - Math.round(r.rating))}
+          </div>
+          <blockquote class="review-card__quote">"{r.text}"</blockquote>
+          <footer class="review-card__footer">
+            <span class="review-card__name">{r.author_name}</span>
+            <span class="review-card__date">{r.relative_time_description}</span>
+            <span class="review-card__source review-card__source--{r.source}">{r.source}</span>
+          </footer>
+        </article>
+      ))}
+    </div>
+  </main>
+</BaseLayout>

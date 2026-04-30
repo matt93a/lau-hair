@@ -1,0 +1,32 @@
+---
+// Meet our team — photo grid.
+// Pulls from CLAUDE.md team list. Existing /stylists.html page is the source of truth.
+// STATUS: scaffold — final styling post-mockup.
+
+const team = [
+  { name: 'Damon',  role: 'Salon Owner',     image: '/images/stylists/damon.jpg',  bioHref: '/stylists.html#damon'  },
+  { name: 'Katy',   role: 'Salon Manager',   image: '/images/stylists/katy.jpg',   bioHref: '/stylists.html#katy'   },
+  { name: 'Lisa',   role: 'Front of House',  image: '/images/stylists/lisa.jpg',   bioHref: '/stylists.html#lisa'   },
+  { name: 'Emily',  role: 'Level 3 Stylist', image: '/images/stylists/emily.jpg',  bioHref: '/stylists.html#emily'  },
+  { name: 'Chloe',  role: 'Level 1 Stylist', image: '/images/stylists/chloe.jpg',  bioHref: '/stylists.html#chloe'  },
+  { name: 'Nick',   role: 'Level 1 Stylist', image: '/images/stylists/nick.jpg',   bioHref: '/stylists.html#nick'   },
+  { name: 'Simon',  role: 'The Maintenance Man', image: '/images/stylists/simon.jpg', bioHref: '/stylists.html#simon' },
+];
+---
+<section class="team-grid" aria-label="Meet our team">
+  <header class="team-grid__header">
+    <h2 class="team-grid__title">Meet Our Team</h2>
+    <a class="team-grid__see-all" href="/stylists.html">View full team →</a>
+  </header>
+  <div class="team-grid__row">
+    {team.map((m) => (
+      <a class="team-card" href={m.bioHref}>
+        <img class="team-card__image" src={m.image} alt={m.name} loading="lazy" />
+        <div class="team-card__meta">
+          <p class="team-card__name">{m.name}</p>
+          <p class="team-card__role">{m.role}</p>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>

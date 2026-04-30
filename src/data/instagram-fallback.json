@@ -1,0 +1,13 @@
+{
+  "_comment": "Placeholder Instagram posts. Replace with live Google Sheet fetch once GOOGLE-SHEET-SPEC is set up. See v2-design-brief/GOOGLE-SHEET-SPEC.md.",
+  "posts": [
+    { "instagram_url": "#", "image_url": "/images/v2/ig-placeholder-1.jpg", "caption": "Placeholder", "service_tag": "Balayage", "look_tag": "Blonde" },
+    { "instagram_url": "#", "image_url": "/images/v2/ig-placeholder-2.jpg", "caption": "Placeholder", "service_tag": "Cuts", "look_tag": "Brunette" },
+    { "instagram_url": "#", "image_url": "/images/v2/ig-placeholder-3.jpg", "caption": "Placeholder", "service_tag": "Colour Correction", "look_tag": "Red" },
+    { "instagram_url": "#", "image_url": "/images/v2/ig-placeholder-4.jpg", "caption": "Placeholder", "service_tag": "Perming", "look_tag": "Long" },
+    { "instagram_url": "#", "image_url": "/images/v2/ig-placeholder-5.jpg", "caption": "Placeholder", "service_tag": "Balayage", "look_tag": "Long" },
+    { "instagram_url": "#", "image_url": "/images/v2/ig-placeholder-6.jpg", "caption": "Placeholder", "service_tag": "Cuts", "look_tag": "Short" },
+    { "instagram_url": "#", "image_url": "/images/v2/ig-placeholder-7.jpg", "caption": "Placeholder", "service_tag": "Balayage", "look_tag": "Blonde" },
+    { "instagram_url": "#", "image_url": "/images/v2/ig-placeholder-8.jpg", "caption": "Placeholder", "service_tag": "Colour Correction", "look_tag": "Brunette" }
+  ]
+}

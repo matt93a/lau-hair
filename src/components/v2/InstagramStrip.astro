@@ -1,0 +1,23 @@
+---
+// Instagram strip near footer — 6-8 hand-picked posts (curated via Google Sheet).
+// On home: shows posts with featured_on_home = Y AND hide = N.
+// STATUS: scaffold — final styling + Google Sheet fetch wiring post-mockup.
+
+import fallback from '../../data/instagram-fallback.json';
+const posts = (fallback.posts || []).slice(0, 8);
+const handle = '@damon_at_lau';
+---
+<section class="ig-strip" aria-label="Follow us on Instagram">
+  <header class="ig-strip__header">
+    <h2 class="ig-strip__heading">Follow Us on Instagram</h2>
+    <a class="ig-strip__handle" href={`https://instagram.com/${handle.replace('@','')}`} target="_blank" rel="noopener">{handle}</a>
+  </header>
+
+  <div class="ig-strip__row">
+    {posts.map((p) => (
+      <a class="ig-tile" href={p.instagram_url} target="_blank" rel="noopener">
+        <img src={p.image_url} alt={p.caption || 'Instagram post'} loading="lazy" />
+      </a>
+    ))}
+  </div>
+</section>

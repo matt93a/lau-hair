@@ -1,0 +1,33 @@
+---
+// Home reviews block — 3 cards in a row + "See all reviews →" link.
+// Pulls from /api/reviews (Netlify Function fetching Google Places API).
+// Falls back to /data/reviews-fallback.json if the API errors.
+// STATUS: scaffold — final card design + fetch wiring post-mockup.
+
+// SSR fetch — at build time, hit the function URL or use cached fallback
+// For now: import a static placeholder. Will be replaced with fetch() at build/render time.
+import fallback from '../../data/reviews-fallback.json';
+const reviews = (fallback.reviews || []).slice(0, 3);
+---
+<section class="reviews-block" aria-label="What our clients say">
+  <header class="reviews-block__header">
+    <h2 class="reviews-block__title">What Our Clients Say</h2>
+    <a class="reviews-block__see-all" href="/reviews.html">See all reviews →</a>
+  </header>
+
+  <div class="reviews-block__row">
+    {reviews.map((r) => (
+      <article class="review-card">
+        <div class="review-card__rating" aria-label={`${r.rating} out of 5 stars`}>
+          {'★'.repeat(Math.round(r.rating))}{'☆'.repeat(5 - Math.round(r.rating))}
+        </div>
+        <blockquote class="review-card__quote">"{r.text.length > 200 ? r.text.slice(0, 197) + '…' : r.text}"</blockquote>
+        <footer class="review-card__footer">
+          <span class="review-card__name">{r.author_name}</span>
+          <span class="review-card__date">{r.relative_time_description}</span>
+          <img class="review-card__source" src={`/images/v2/${r.source}-logo.svg`} alt={r.source} />
+        </footer>
+      </article>
+    ))}
+  </div>
+</section>

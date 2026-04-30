@@ -1,0 +1,99 @@
+/* ===========================================================
+   v2 component styles — placeholder
+   Final styling applied once Claude Design mockups arrive.
+   For now: minimal layout to make pages render without breaking.
+   =========================================================== */
+
+/* Hero slider --------------------------------------------------- */
+.hero-slider { position: relative; }
+.hero-slider__viewport { position: relative; min-height: 500px; }
+.hero-slider__slide { display: none; grid-template-columns: 1fr 1fr; min-height: 500px; }
+.hero-slider__slide.is-active { display: grid; }
+.hero-slider__image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-slider__panel { background: #121212; color: #fff; display: flex; align-items: center; justify-content: center; padding: 4rem 3rem; }
+.hero-slider__quote p { font-size: 1.4rem; font-weight: 200; line-height: 1.5; margin: 0 0 1.5rem; }
+.hero-slider__quote cite { font-style: normal; font-weight: 300; opacity: 0.85; }
+.hero-slider__controls { position: absolute; bottom: 1rem; right: 50%; transform: translateX(50%); display: flex; gap: 0.5rem; }
+.hero-slider__btn { background: #fff; border: 1px solid #000; padding: 0.5rem 1rem; cursor: pointer; }
+@media (max-width: 768px) {
+  .hero-slider__slide { grid-template-columns: 1fr; }
+  .hero-slider__panel { padding: 2rem 1.5rem; }
+}
+
+/* Service cards ------------------------------------------------- */
+.service-cards { padding: 4rem 2rem; }
+.service-cards__row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+@media (max-width: 1050px) { .service-cards__row { grid-template-columns: repeat(2, 1fr); } }
+.service-card { display: block; position: relative; aspect-ratio: 3/4; overflow: hidden; text-decoration: none; }
+.service-card__image { width: 100%; height: 100%; object-fit: cover; display: block; }
+.service-card__overlay { position: absolute; inset: auto 0 0 0; padding: 1.5rem; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); color: #fff; }
+.service-card__title { font-size: 1.1rem; font-weight: 300; margin: 0; }
+
+/* Anniversary panel --------------------------------------------- */
+.anniversary-panel { background: #FAF9F5; padding: 5rem 2rem; text-align: center; }
+.anniversary-panel__inner { max-width: 800px; margin: 0 auto; }
+.anniversary-panel__eyebrow { letter-spacing: 0.3em; font-size: 0.85rem; color: #B09F65; margin: 0 0 1rem; }
+.anniversary-panel__heading { font-size: 3rem; font-weight: 200; margin: 0 0 1.5rem; }
+.anniversary-panel__lede { font-size: 1.05rem; line-height: 1.7; color: #333; }
+
+/* Transformations ----------------------------------------------- */
+.transformations { padding: 4rem 2rem; }
+.transformations__title { font-size: 2rem; font-weight: 200; text-align: center; margin: 0 0 3rem; }
+.transformations__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+@media (max-width: 768px) { .transformations__grid { grid-template-columns: 1fr; } }
+.transformation__pair { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.transformation__image { width: 100%; aspect-ratio: 1; object-fit: cover; }
+.transformation__caption { text-align: center; font-size: 0.9rem; margin-top: 0.75rem; color: #666; }
+
+/* Team grid ----------------------------------------------------- */
+.team-grid { padding: 4rem 2rem; background: #fff; }
+.team-grid__header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2rem; }
+.team-grid__title { font-size: 2rem; font-weight: 200; margin: 0; }
+.team-grid__row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+@media (max-width: 1050px) { .team-grid__row { grid-template-columns: repeat(2, 1fr); } }
+.team-card { text-decoration: none; color: inherit; display: block; }
+.team-card__image { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+.team-card__meta { padding: 0.75rem 0; }
+.team-card__name { font-weight: 600; margin: 0 0 0.25rem; }
+.team-card__role { font-size: 0.85rem; color: #666; margin: 0; }
+
+/* Reviews block (home) ----------------------------------------- */
+.reviews-block { padding: 4rem 2rem; background: #FAF9F5; }
+.reviews-block__header { display: flex; justify-content: space-between; align-items: baseline; max-width: 1200px; margin: 0 auto 2rem; }
+.reviews-block__title { font-size: 2rem; font-weight: 200; margin: 0; }
+.reviews-block__row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
+@media (max-width: 1050px) { .reviews-block__row { grid-template-columns: 1fr; } }
+.review-card { background: #fff; padding: 2rem; border: 1px solid #eee; }
+.review-card__rating { color: #B09F65; font-size: 1.25rem; margin-bottom: 1rem; }
+.review-card__quote { font-style: italic; line-height: 1.6; margin: 0 0 1.5rem; }
+.review-card__footer { display: flex; gap: 1rem; align-items: center; font-size: 0.85rem; color: #666; }
+.review-card__name { font-weight: 600; color: #000; }
+
+/* Reviews page (masonry) --------------------------------------- */
+.reviews-page { padding: 4rem 2rem; max-width: 1400px; margin: 0 auto; }
+.reviews-page__header { text-align: center; margin-bottom: 3rem; }
+.reviews-page__title { font-size: 2.5rem; font-weight: 200; margin: 0 0 1rem; }
+.reviews-page__average { font-size: 1.1rem; margin: 0 0 1.5rem; }
+.reviews-page__masonry { columns: 3 320px; column-gap: 1.5rem; }
+.reviews-page__masonry .review-card { break-inside: avoid; margin-bottom: 1.5rem; }
+
+/* Our Work page ------------------------------------------------- */
+.our-work-page { padding: 4rem 2rem; max-width: 1400px; margin: 0 auto; }
+.our-work-page__header { text-align: center; margin-bottom: 3rem; }
+.our-work-page__title { font-size: 2.5rem; font-weight: 200; margin: 0 0 0.75rem; }
+.our-work-page__filters { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2.5rem; align-items: center; }
+.filter-row { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+.filter-pill { background: #fff; border: 1px solid #ccc; padding: 0.5rem 1.25rem; cursor: pointer; font-family: inherit; font-size: 0.9rem; transition: all 0.15s; }
+.filter-pill.is-active { background: #000; color: #fff; border-color: #000; }
+.our-work-page__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+@media (max-width: 768px) { .our-work-page__grid { grid-template-columns: repeat(2, 1fr); } }
+.ig-tile { display: block; aspect-ratio: 1; overflow: hidden; }
+.ig-tile img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
+.ig-tile:hover img { transform: scale(1.05); }
+
+/* Instagram strip (home) --------------------------------------- */
+.ig-strip { padding: 3rem 2rem; }
+.ig-strip__header { display: flex; justify-content: space-between; align-items: baseline; max-width: 1200px; margin: 0 auto 1.5rem; }
+.ig-strip__heading { font-size: 1.5rem; font-weight: 200; margin: 0; }
+.ig-strip__row { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; max-width: 1400px; margin: 0 auto; }
+@media (max-width: 1050px) { .ig-strip__row { grid-auto-flow: column; grid-auto-columns: 40%; grid-template-columns: none; overflow-x: auto; } }

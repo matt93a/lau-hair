@@ -1,0 +1,28 @@
+{
+  "_comment": "Placeholder reviews used if Google Places API call fails. Replace with real cached JSON once the API is wired up.",
+  "rating": 5.0,
+  "user_ratings_total": 0,
+  "reviews": [
+    {
+      "author_name": "Placeholder Name",
+      "rating": 5,
+      "text": "Placeholder review text. Will be replaced by live Google Places API data once the API key is set up. See v2-design-brief/GOOGLE-REVIEWS-API-SETUP.md.",
+      "relative_time_description": "a month ago",
+      "source": "google"
+    },
+    {
+      "author_name": "Placeholder Name 2",
+      "rating": 5,
+      "text": "Another placeholder review. The reviews block will fall back to this list if the live fetch fails, so the page never breaks.",
+      "relative_time_description": "2 months ago",
+      "source": "google"
+    },
+    {
+      "author_name": "Placeholder Name 3",
+      "rating": 5,
+      "text": "Third placeholder. Once Damon enables the Places API and Matt wires the key, this gets replaced by real reviews.",
+      "relative_time_description": "3 months ago",
+      "source": "facebook"
+    }
+  ]
+}

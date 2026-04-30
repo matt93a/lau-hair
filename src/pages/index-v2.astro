@@ -1,0 +1,31 @@
+---
+// V2 home page — preview build.
+// Section order matches v2-design-brief/BRIEF-FOR-CLAUDE-DESIGN.md.
+// Final styling/copy/imagery applied once Claude Design mockups arrive.
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSlider from '../components/v2/HeroSlider.astro';
+import ServiceCards from '../components/v2/ServiceCards.astro';
+import AnniversaryPanel from '../components/v2/AnniversaryPanel.astro';
+import ClientTransformations from '../components/v2/ClientTransformations.astro';
+import TeamGrid from '../components/v2/TeamGrid.astro';
+import ReviewsBlock from '../components/v2/ReviewsBlock.astro';
+import InstagramStrip from '../components/v2/InstagramStrip.astro';
+---
+<BaseLayout
+  title="Lau Hairdressing — Maidstone | 30 Years of Expert Hair (v2 preview)"
+  description="Independent hair salon in Maidstone, Kent. Balayage, colour correction, cuts and more — celebrating 30 years in 2026."
+  bodyClass="page-home page-home--v2"
+>
+  <link rel="stylesheet" href="/css/v2.css" slot="head" />
+
+  <main>
+    <HeroSlider />
+    <ServiceCards />
+    <AnniversaryPanel />
+    <ClientTransformations />
+    <TeamGrid />
+    <ReviewsBlock />
+    <InstagramStrip />
+  </main>
+</BaseLayout>

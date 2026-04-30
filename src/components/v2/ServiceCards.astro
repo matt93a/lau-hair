@@ -1,0 +1,46 @@
+---
+// Service speciality cards — sit directly under the hero slider.
+// 4 back-of-head photo cards with service titles overlaid.
+// Desktop: horizontal scroll if overflow. Mobile: 2-col grid showing all.
+//
+// STATUS: scaffold — image swap + final styles post-mockup.
+
+const services = [
+  {
+    title: 'Balayage & Blonde Specialists in Maidstone',
+    short: 'Balayage & Blonde',
+    image: '/images/v2/service-balayage.jpg',
+    href: '/services.html#balayage',
+  },
+  {
+    title: 'Haircutting Specialists in Maidstone',
+    short: 'Haircutting',
+    image: '/images/v2/service-haircutting.jpg',
+    href: '/services.html#cuts',
+  },
+  {
+    title: 'Colour Correction Experts in Maidstone',
+    short: 'Colour Correction',
+    image: '/images/v2/service-colour-correction.jpg',
+    href: '/services.html#colour',
+  },
+  {
+    title: 'Perming Specialist in Maidstone',
+    short: 'Perming',
+    image: '/images/v2/service-perming.jpg',
+    href: '/services.html#perming',
+  },
+];
+---
+<section class="service-cards" aria-label="Our specialities">
+  <div class="service-cards__row">
+    {services.map((s) => (
+      <a class="service-card" href={s.href}>
+        <img class="service-card__image" src={s.image} alt={s.title} loading="lazy" />
+        <div class="service-card__overlay">
+          <h3 class="service-card__title">{s.title}</h3>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,82 @@
+---
+// /our-work page — Instagram-driven, filterable.
+// Filter row 1: Service (Balayage / Cuts / Colour Correction / Perming)
+// Filter row 2: Look (Blonde / Brunette / Red / Short / Long / Up-styles)
+// AND logic between rows.
+// STATUS: scaffold — final styling + live Google Sheet fetch post-mockup.
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import fallback from '../data/instagram-fallback.json';
+
+const services = ['All', 'Balayage', 'Cuts', 'Colour Correction', 'Perming'];
+const looks    = ['All', 'Blonde', 'Brunette', 'Red', 'Short', 'Long', 'Up-styles'];
+const posts    = fallback.posts || [];
+---
+<BaseLayout
+  title="Our Work — Lau Hairdressing, Maidstone"
+  description="See our latest work — balayage, colour correction, cuts and perming from our Maidstone salon."
+  bodyClass="page-our-work"
+>
+  <link rel="stylesheet" href="/css/v2.css" slot="head" />
+
+  <main class="our-work-page page-top">
+    <header class="our-work-page__header">
+      <h1 class="our-work-page__title">Our Work</h1>
+      <p class="our-work-page__lede">Recent work from the salon — filter to find your style.</p>
+    </header>
+
+    <div class="our-work-page__filters">
+      <div class="filter-row" data-filter-group="service">
+        {services.map((s) => (
+          <button class={`filter-pill ${s === 'All' ? 'is-active' : ''}`} data-filter-value={s}>{s}</button>
+        ))}
+      </div>
+      <div class="filter-row" data-filter-group="look">
+        {looks.map((l) => (
+          <button class={`filter-pill ${l === 'All' ? 'is-active' : ''}`} data-filter-value={l}>{l}</button>
+        ))}
+      </div>
+    </div>
+
+    <div class="our-work-page__grid" id="our-work-grid">
+      {posts.map((p) => (
+        <a class="ig-tile" href={p.instagram_url} target="_blank" rel="noopener" data-service={p.service_tag} data-look={p.look_tag}>
+          <img src={p.image_url} alt={p.caption || 'Instagram post'} loading="lazy" />
+        </a>
+      ))}
+    </div>
+  </main>
+
+  <script is:inline>
+    // Filter logic — pure DOM, no framework.
+    (function () {
+      var state = { service: 'All', look: 'All' };
+      var grid = document.getElementById('our-work-grid');
+      if (!grid) return;
+      var tiles = grid.querySelectorAll('.ig-tile');
+      var rows = document.querySelectorAll('.filter-row');
+
+      rows.forEach(function (row) {
+        var group = row.getAttribute('data-filter-group');
+        row.querySelectorAll('.filter-pill').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            row.querySelectorAll('.filter-pill').forEach(function (b) { b.classList.remove('is-active'); });
+            btn.classList.add('is-active');
+            state[group] = btn.getAttribute('data-filter-value');
+            apply();
+          });
+        });
+      });
+
+      function apply() {
+        tiles.forEach(function (t) {
+          var s = t.getAttribute('data-service');
+          var l = t.getAttribute('data-look');
+          var match = (state.service === 'All' || s === state.service) &&
+                      (state.look === 'All' || l === state.look);
+          t.style.display = match ? '' : 'none';
+        });
+      }
+    })();
+  </script>
+</BaseLayout>

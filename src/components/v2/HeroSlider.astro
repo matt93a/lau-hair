@@ -1,0 +1,36 @@
+---
+// Hero slider — matches /salon page style.
+// Image left + dark quote panel right + ← → arrow controls.
+// Auto-rotates with manual nav.
+//
+// STATUS: scaffold — slide content + carousel JS to be implemented post-mockup.
+// See: v2-design-brief/BRIEF-FOR-CLAUDE-DESIGN.md (Section 1)
+
+import slides from '../../data/heroSlides.json';
+---
+<section class="hero-slider" aria-label="Featured highlights">
+  <div class="hero-slider__viewport">
+    {slides.map((slide, i) => (
+      <div class={`hero-slider__slide ${i === 0 ? 'is-active' : ''}`} data-slide-index={i}>
+        <div class="hero-slider__image">
+          <img src={slide.image} alt={slide.alt} loading={i === 0 ? 'eager' : 'lazy'} />
+        </div>
+        <div class="hero-slider__panel">
+          <blockquote class="hero-slider__quote">
+            <p>{slide.quote}</p>
+            <cite>— {slide.attribution}</cite>
+          </blockquote>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="hero-slider__controls">
+    <button class="hero-slider__btn hero-slider__btn--next" aria-label="Next slide">→</button>
+    <button class="hero-slider__btn hero-slider__btn--prev" aria-label="Previous slide">←</button>
+  </div>
+</section>
+
+<script is:inline>
+  // TODO: implement slide rotation, swipe, keyboard nav. Hook into mockup design timing.
+</script>
