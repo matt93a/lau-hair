@@ -1,33 +1,28 @@
 ---
-// Home reviews block — 3 cards in a row + "See all reviews →" link.
-// Pulls from /api/reviews (Netlify Function fetching Google Places API).
-// Falls back to /data/reviews-fallback.json if the API errors.
-// STATUS: scaffold — final card design + fetch wiring post-mockup.
+// Home reviews strip — 3 cards + see-all link.
+import ReviewCard from './ReviewCard.astro';
+import data from '../../data/reviews.json';
 
-// SSR fetch — at build time, hit the function URL or use cached fallback
-// For now: import a static placeholder. Will be replaced with fetch() at build/render time.
-import fallback from '../../data/reviews-fallback.json';
-const reviews = (fallback.reviews || []).slice(0, 3);
+const cards = (data.reviews || []).slice(0, 3);
+const avg = (data.rating || 4.9).toFixed(1);
+const total = data.user_ratings_total || cards.length;
 ---
-<section class="reviews-block" aria-label="What our clients say">
-  <header class="reviews-block__header">
-    <h2 class="reviews-block__title">What Our Clients Say</h2>
-    <a class="reviews-block__see-all" href="/reviews.html">See all reviews →</a>
-  </header>
-
-  <div class="reviews-block__row">
-    {reviews.map((r) => (
-      <article class="review-card">
-        <div class="review-card__rating" aria-label={`${r.rating} out of 5 stars`}>
-          {'★'.repeat(Math.round(r.rating))}{'☆'.repeat(5 - Math.round(r.rating))}
-        </div>
-        <blockquote class="review-card__quote">"{r.text.length > 200 ? r.text.slice(0, 197) + '…' : r.text}"</blockquote>
-        <footer class="review-card__footer">
-          <span class="review-card__name">{r.author_name}</span>
-          <span class="review-card__date">{r.relative_time_description}</span>
-          <img class="review-card__source" src={`/images/v2/${r.source}-logo.svg`} alt={r.source} />
-        </footer>
-      </article>
-    ))}
+<section class="section reviews-strip-section">
+  <div class="container">
+    <div class="section-title">
+      <div>
+        <div class="eyebrow gold" style="margin-bottom: 14px;">What our clients say</div>
+        <h2>{avg} ★ from {total}+ reviews.</h2>
+      </div>
+      <p class="lede">Real, verified reviews from Google and Facebook. The good, the great, and the occasional parking gripe.</p>
+    </div>
+    <div class="reviews-strip-grid">
+      {cards.map(r => (
+        <ReviewCard rating={r.rating} source={r.source} name={r.name} date={r.date} text={r.text} truncate={true} />
+      ))}
+    </div>
+    <div class="reviews-strip-cta">
+      <a class="btn btn-secondary" href="/reviews.html">See all reviews →</a>
+    </div>
   </div>
 </section>

@@ -1,23 +1,34 @@
 ---
-// Instagram strip near footer — 6-8 hand-picked posts (curated via Google Sheet).
-// On home: shows posts with featured_on_home = Y AND hide = N.
-// STATUS: scaffold — final styling + Google Sheet fetch wiring post-mockup.
+// Instagram strip near footer — 8 hand-picked tiles.
+// Will be replaced by Google Sheet feed (see GOOGLE-SHEET-SPEC.md).
 
-import fallback from '../../data/instagram-fallback.json';
-const posts = (fallback.posts || []).slice(0, 8);
-const handle = '@damon_at_lau';
+const TILES = [
+  '/images/v2/transform-1.png',
+  '/images/v2/transform-2.png',
+  '/images/v2/transform-3.png',
+  '/images/v2/transform-1.png',
+  '/images/v2/transform-2.png',
+  '/images/v2/transform-3.png',
+  '/images/v2/transform-1.png',
+  '/images/v2/transform-2.png',
+];
+const HANDLE = '@damon_at_lau';
 ---
-<section class="ig-strip" aria-label="Follow us on Instagram">
-  <header class="ig-strip__header">
-    <h2 class="ig-strip__heading">Follow Us on Instagram</h2>
-    <a class="ig-strip__handle" href={`https://instagram.com/${handle.replace('@','')}`} target="_blank" rel="noopener">{handle}</a>
-  </header>
-
-  <div class="ig-strip__row">
-    {posts.map((p) => (
-      <a class="ig-tile" href={p.instagram_url} target="_blank" rel="noopener">
-        <img src={p.image_url} alt={p.caption || 'Instagram post'} loading="lazy" />
-      </a>
-    ))}
+<section class="ig-strip-section">
+  <div class="container">
+    <div class="ig-strip-head">
+      <div>
+        <div class="eyebrow gold ig-strip-eyebrow">Follow us</div>
+        <h3>{HANDLE}</h3>
+      </div>
+      <a class="btn btn-secondary btn-sm" href={`https://instagram.com/${HANDLE.replace('@','')}`} target="_blank" rel="noopener">View profile →</a>
+    </div>
+    <div class="ig-strip">
+      {TILES.map((src, i) => (
+        <a href={`https://instagram.com/${HANDLE.replace('@','')}`} target="_blank" rel="noopener">
+          <img src={src} alt={`Lau Hairdressing Instagram tile ${i+1}`} loading="lazy" />
+        </a>
+      ))}
+    </div>
   </div>
 </section>

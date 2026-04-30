@@ -1,36 +1,128 @@
 ---
-// Hero slider — matches /salon page style.
-// Image left + dark quote panel right + ← → arrow controls.
-// Auto-rotates with manual nav.
-//
-// STATUS: scaffold — slide content + carousel JS to be implemented post-mockup.
-// See: v2-design-brief/BRIEF-FOR-CLAUDE-DESIGN.md (Section 1)
+// Hero slider — image left, near-black quote panel right.
+// Auto-rotates every 6500ms, manual prev/next, dot indicators.
+// Slide 5 (anniversary tone) shows "30 Years" overlay over the image.
 
-import slides from '../../data/heroSlides.json';
+const HERO_SLIDES = [
+  {
+    image: '/images/v2/transform-3.png',
+    eyebrow: 'Balayage & Blonde Specialists',
+    title: 'Balayage & Blonde Specialists in Maidstone',
+    quote: 'Hand-painted, dimensional, lived-in. Colour that grows out beautifully — built around how you live.',
+    attribution: 'The Lau colour team',
+    tone: 'default',
+  },
+  {
+    image: '/images/v2/transform-1.png',
+    eyebrow: 'Haircutting Specialists',
+    title: 'Haircutting Specialists in Maidstone',
+    quote: 'A great cut should sit right the morning after, the week after, and the month after. That\u2019s the standard.',
+    attribution: 'Damon Lau',
+    tone: 'default',
+  },
+  {
+    image: '/images/v2/transform-2.png',
+    eyebrow: 'Colour Correction Experts',
+    title: 'Colour Correction Experts in Maidstone',
+    quote: 'Bring us the disasters. We\u2019ll bring you back to yourself \u2014 with your hair\u2019s health intact.',
+    attribution: 'The Lau colour team',
+    tone: 'default',
+  },
+  {
+    image: '/images/v2/transform-1.png',
+    eyebrow: 'Perming Specialist',
+    title: 'Perming Specialist in Maidstone',
+    quote: 'Modern perms \u2014 soft, textured, low-fuss. The technique your mum had, completely reimagined.',
+    attribution: 'Olivia, Lau Perm Specialist',
+    tone: 'default',
+  },
+  {
+    image: '/images/v2/damon-banner.png',
+    eyebrow: '1996 — 2026 \u00B7 Thirty years',
+    title: 'Damon Lau \u00B7 Founder',
+    quote: 'When passion becomes profession, quality matters. Thirty years of Lau Hairdressing.',
+    attribution: 'Damon Lau, Founder',
+    tone: 'anniversary',
+  },
+];
+const total = HERO_SLIDES.length;
 ---
-<section class="hero-slider" aria-label="Featured highlights">
-  <div class="hero-slider__viewport">
-    {slides.map((slide, i) => (
-      <div class={`hero-slider__slide ${i === 0 ? 'is-active' : ''}`} data-slide-index={i}>
-        <div class="hero-slider__image">
-          <img src={slide.image} alt={slide.alt} loading={i === 0 ? 'eager' : 'lazy'} />
+<section class="hero-section">
+  <div class="container">
+    <div class="hero-frame">
+      <div class="hero-img-col" id="hero-img-col">
+        {HERO_SLIDES.map((s, i) => (
+          <div class={`hero-slide-img ${i === 0 ? 'is-active' : ''}`} data-slide={i}>
+            <img src={s.image} alt={s.title} loading={i === 0 ? 'eager' : 'lazy'} />
+          </div>
+        ))}
+        <div class="hero-thirty-mark" id="hero-thirty-mark">
+          <div class="hero-thirty-num">30</div>
+          <div class="hero-thirty-label">Years</div>
         </div>
-        <div class="hero-slider__panel">
-          <blockquote class="hero-slider__quote">
-            <p>{slide.quote}</p>
-            <cite>— {slide.attribution}</cite>
-          </blockquote>
+        <div class="hero-slide-title" id="hero-slide-title">{HERO_SLIDES[0].title}</div>
+      </div>
+      <div class="hero-quote-col">
+        <div class="hero-eyebrow-slide" id="hero-eyebrow">{HERO_SLIDES[0].eyebrow}</div>
+        <blockquote class="hero-quote" id="hero-quote">"{HERO_SLIDES[0].quote}"</blockquote>
+        <div class="hero-attribution" id="hero-attribution">— {HERO_SLIDES[0].attribution}</div>
+
+        <div class="hero-controls">
+          <button class="hero-arrow-btn" id="hero-prev" aria-label="Previous slide">
+            <svg width="20" height="14" viewBox="0 0 20 14" fill="none"><path d="M19 7H1m0 0l6-6m-6 6l6 6" stroke="currentColor" stroke-width="1"/></svg>
+          </button>
+          <button class="hero-arrow-btn" id="hero-next" aria-label="Next slide">
+            <svg width="20" height="14" viewBox="0 0 20 14" fill="none"><path d="M1 7h18m0 0l-6-6m6 6l-6 6" stroke="currentColor" stroke-width="1"/></svg>
+          </button>
+        </div>
+        <div class="hero-counter">
+          <div class="hero-dots" id="hero-dots">
+            {HERO_SLIDES.map((_, i) => (
+              <button class={`hero-dot ${i === 0 ? 'is-active' : ''}`} data-dot={i} aria-label={`Slide ${i+1}`}></button>
+            ))}
+          </div>
+          <span class="hero-count" id="hero-count">01 / {String(total).padStart(2,'0')}</span>
         </div>
       </div>
-    ))}
-  </div>
-
-  <div class="hero-slider__controls">
-    <button class="hero-slider__btn hero-slider__btn--next" aria-label="Next slide">→</button>
-    <button class="hero-slider__btn hero-slider__btn--prev" aria-label="Previous slide">←</button>
+    </div>
   </div>
 </section>
 
-<script is:inline>
-  // TODO: implement slide rotation, swipe, keyboard nav. Hook into mockup design timing.
+<script is:inline define:vars={{ HERO_SLIDES, total }}>
+  (function () {
+    var i = 0;
+    var auto = true;
+    var imgs = document.querySelectorAll('.hero-slide-img');
+    var dots = document.querySelectorAll('.hero-dot');
+    var titleEl = document.getElementById('hero-slide-title');
+    var eyebrowEl = document.getElementById('hero-eyebrow');
+    var quoteEl = document.getElementById('hero-quote');
+    var attrEl = document.getElementById('hero-attribution');
+    var countEl = document.getElementById('hero-count');
+    var thirtyMark = document.getElementById('hero-thirty-mark');
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+    function go(n) {
+      i = ((n % total) + total) % total;
+      imgs.forEach(function (el, idx) { el.classList.toggle('is-active', idx === i); });
+      dots.forEach(function (el, idx) { el.classList.toggle('is-active', idx === i); });
+      var s = HERO_SLIDES[i];
+      titleEl.textContent = s.title;
+      eyebrowEl.textContent = s.eyebrow;
+      quoteEl.textContent = '"' + s.quote + '"';
+      attrEl.textContent = '— ' + s.attribution;
+      countEl.textContent = pad(i + 1) + ' / ' + pad(total);
+      thirtyMark.classList.toggle('is-active', s.tone === 'anniversary');
+    }
+
+    document.getElementById('hero-prev').addEventListener('click', function () { auto = false; go(i - 1); });
+    document.getElementById('hero-next').addEventListener('click', function () { auto = false; go(i + 1); });
+    dots.forEach(function (d) { d.addEventListener('click', function () { auto = false; go(parseInt(d.getAttribute('data-dot'), 10)); }); });
+
+    // Respect prefers-reduced-motion
+    var prm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (prm && prm.matches) auto = false;
+
+    setInterval(function () { if (auto) go(i + 1); }, 6500);
+  })();
 </script>

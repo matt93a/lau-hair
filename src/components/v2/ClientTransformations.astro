@@ -1,28 +1,48 @@
 ---
-// Client transformations — before/after pairs.
-// Two layout options pending mockup: side-by-side, or drag-to-reveal.
-// STATUS: scaffold — final imagery and chosen layout post-mockup.
+// Client transformations — side-by-side BEFORE/AFTER pairs.
+// Drag-reveal alternative was specced; using side-by-side per Matt's preference TBC.
 
-const transformations = [
-  { id: 1, before: '/images/v2/transformations/1-before.jpg', after: '/images/v2/transformations/1-after.jpg', label: 'Balayage transformation' },
-  { id: 2, before: '/images/v2/transformations/2-before.jpg', after: '/images/v2/transformations/2-after.jpg', label: 'Colour correction' },
-  { id: 3, before: '/images/v2/transformations/3-before.jpg', after: '/images/v2/transformations/3-after.jpg', label: 'Cut and finish' },
-  { id: 4, before: '/images/v2/transformations/4-before.jpg', after: '/images/v2/transformations/4-after.jpg', label: 'Brunette gloss' },
+const TRANSFORMS = [
+  { before: '/images/v2/transform-1.png', after: '/images/v2/transform-3.png', label: 'Blonde Balayage',     stylist: 'Tamlin' },
+  { before: '/images/v2/transform-3.png', after: '/images/v2/transform-2.png', label: 'Brunette dimension',  stylist: 'Damon' },
+  { before: '/images/v2/transform-2.png', after: '/images/v2/transform-1.png', label: 'Bronde lift',         stylist: 'Hannah' },
+  { before: '/images/v2/transform-1.png', after: '/images/v2/transform-3.png', label: 'Colour correction',   stylist: 'Damon' },
 ];
 ---
-<section class="transformations" aria-label="Real client transformations">
-  <header class="transformations__header">
-    <h2 class="transformations__title">Real Client Transformations</h2>
-  </header>
-  <div class="transformations__grid">
-    {transformations.map((t) => (
-      <figure class="transformation" data-transformation={t.id}>
-        <div class="transformation__pair">
-          <img class="transformation__image transformation__image--before" src={t.before} alt={`${t.label} – before`} loading="lazy" />
-          <img class="transformation__image transformation__image--after"  src={t.after}  alt={`${t.label} – after`}  loading="lazy" />
+<section class="section transform-section">
+  <div class="container">
+    <div class="section-title">
+      <div>
+        <div class="eyebrow gold" style="margin-bottom: 14px;">Real Client Transformations</div>
+        <h2>Before. After. The work.</h2>
+      </div>
+      <p class="lede">No filters. Salon lighting, real clients, hand-painted colour. Drag the slider — or scroll through the pairs.</p>
+    </div>
+
+    <div class="transform-grid">
+      {TRANSFORMS.map(t => (
+        <div class="transform-card">
+          <div class="transform-pair">
+            <div>
+              <img src={t.before} alt={`${t.label} – before`} loading="lazy" />
+              <div class="transform-tag">BEFORE</div>
+            </div>
+            <div>
+              <img src={t.after} alt={`${t.label} – after`} loading="lazy" />
+              <div class="transform-tag transform-tag-after">AFTER</div>
+            </div>
+            <div class="transform-divider"></div>
+          </div>
+          <div class="transform-caption">
+            <div style="font-size: 14px; font-weight: 500;">{t.label}</div>
+            <div class="transform-caption-meta">By {t.stylist}</div>
+          </div>
         </div>
-        <figcaption class="transformation__caption">{t.label}</figcaption>
-      </figure>
-    ))}
+      ))}
+    </div>
+
+    <div class="transform-cta">
+      <a class="btn btn-secondary" href="/our-work.html">See all our work →</a>
+    </div>
   </div>
 </section>

@@ -1,32 +1,48 @@
 ---
-// Meet our team — photo grid.
-// Pulls from CLAUDE.md team list. Existing /stylists.html page is the source of truth.
-// STATUS: scaffold — final styling post-mockup.
+// Team grid — 6 stylists + 1 hiring card.
+// Sources from existing team data in CLAUDE.md.
 
-const team = [
-  { name: 'Damon',  role: 'Salon Owner',     image: '/images/stylists/damon.jpg',  bioHref: '/stylists.html#damon'  },
-  { name: 'Katy',   role: 'Salon Manager',   image: '/images/stylists/katy.jpg',   bioHref: '/stylists.html#katy'   },
-  { name: 'Lisa',   role: 'Front of House',  image: '/images/stylists/lisa.jpg',   bioHref: '/stylists.html#lisa'   },
-  { name: 'Emily',  role: 'Level 3 Stylist', image: '/images/stylists/emily.jpg',  bioHref: '/stylists.html#emily'  },
-  { name: 'Chloe',  role: 'Level 1 Stylist', image: '/images/stylists/chloe.jpg',  bioHref: '/stylists.html#chloe'  },
-  { name: 'Nick',   role: 'Level 1 Stylist', image: '/images/stylists/nick.jpg',   bioHref: '/stylists.html#nick'   },
-  { name: 'Simon',  role: 'The Maintenance Man', image: '/images/stylists/simon.jpg', bioHref: '/stylists.html#simon' },
+const TEAM = [
+  { name: 'Damon', role: 'Salon Owner',     img: '/images/v2/damon-banner.png',         href: '/stylists.html#damon' },
+  { name: 'Katy',  role: 'Salon Manager',   img: '/images/v2/stylists/katy.jpg',        href: '/stylists.html#katy' },
+  { name: 'Lisa',  role: 'Front of House',  img: '/images/v2/stylists/lisa.jpg',        href: '/stylists.html#lisa' },
+  { name: 'Emily', role: 'Level 3 Stylist', img: '/images/v2/stylists/emily.jpg',       href: '/stylists.html#emily' },
+  { name: 'Chloe', role: 'Level 1 Stylist', img: '/images/v2/stylists/chloe.jpg',       href: '/stylists.html#chloe' },
+  { name: 'Nick',  role: 'Level 1 Stylist', img: '/images/v2/stylists/nick.png',        href: '/stylists.html#nick' },
 ];
 ---
-<section class="team-grid" aria-label="Meet our team">
-  <header class="team-grid__header">
-    <h2 class="team-grid__title">Meet Our Team</h2>
-    <a class="team-grid__see-all" href="/stylists.html">View full team →</a>
-  </header>
-  <div class="team-grid__row">
-    {team.map((m) => (
-      <a class="team-card" href={m.bioHref}>
-        <img class="team-card__image" src={m.image} alt={m.name} loading="lazy" />
-        <div class="team-card__meta">
-          <p class="team-card__name">{m.name}</p>
-          <p class="team-card__role">{m.role}</p>
-        </div>
+<section class="section team-section">
+  <div class="container">
+    <div class="section-title">
+      <div>
+        <div class="eyebrow gold" style="margin-bottom: 14px;">Meet the Team</div>
+        <h2>The hands behind the chair.</h2>
+      </div>
+      <p class="lede">The Lau team — stylists, manager, front of house. Read each bio and book directly.</p>
+    </div>
+    <div class="team-grid">
+      {TEAM.map(m => (
+        <a class="team-card" href={m.href}>
+          <div class="team-card-img-wrap">
+            <img src={m.img} alt={m.name} loading="lazy" />
+            <div class="team-card-overlay"><span>View bio →</span></div>
+          </div>
+          <div class="team-card-body">
+            <div class="team-card-name">{m.name}</div>
+            <div class="team-card-role">{m.role}</div>
+          </div>
+        </a>
+      ))}
+      <a class="team-card-hiring" href="/careers.html">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="margin-bottom: 16px;">
+          <path d="M8 8l16 16M24 8L8 24" stroke="#b09f65" stroke-width="1"/>
+          <circle cx="8" cy="8" r="3" stroke="#b09f65" stroke-width="1"/>
+          <circle cx="24" cy="8" r="3" stroke="#b09f65" stroke-width="1"/>
+        </svg>
+        <div class="eyebrow">We're Hiring</div>
+        <div class="head">Join the Lau team</div>
+        <div class="link">View positions →</div>
       </a>
-    ))}
+    </div>
   </div>
 </section>
