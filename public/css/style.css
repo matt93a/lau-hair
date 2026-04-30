@@ -109,21 +109,23 @@ p {
   border-color: #fff;
 }
 
-/* Push everything down when the banner is present */
+/* Push everything down when the banner is present.
+   --banner-h is set dynamically by inline JS in BaseLayout (measures actual banner height).
+   Falls back to 34px if JS doesn't run (matches desktop). */
 .has-recruiting-banner .site-header {
-  top: 34px; /* banner height */
+  top: var(--banner-h, 34px);
 }
 
 .has-recruiting-banner .page-top {
-  padding-top: 114px; /* 80px normal + 34px banner */
+  padding-top: calc(80px + var(--banner-h, 34px));
 }
 
 .has-recruiting-banner .page-header {
-  padding-top: 154px; /* 120px normal + 34px banner */
+  padding-top: calc(120px + var(--banner-h, 34px));
 }
 
 .has-recruiting-banner .mobile-nav {
-  top: 94px; /* 60px header + 34px banner */
+  top: calc(60px + var(--banner-h, 34px));
 }
 
 @media (max-width: 620px) {
@@ -1672,7 +1674,7 @@ p {
 }
 
 .has-recruiting-banner .careers-hero {
-  padding-top: 194px; /* extra 34px for banner */
+  padding-top: calc(160px + var(--banner-h, 34px));
 }
 
 .careers-hero__inner {

@@ -81,5 +81,33 @@ const fullCanonical = canonical ?? `https://www.lau-hair.com${pathname}`;
     <slot />
     {!bareChrome && <MobileNav />}
     {!bareChrome && <Footer />}
+
+    {showBanner && (
+      <script is:inline>
+        // Measure the actual recruiting-banner height and expose as --banner-h.
+        // Fixes the mobile header bug where the banner stacks vertically (~78px tall)
+        // but the header was hardcoded to top: 34px, causing the logo to be cut off.
+        (function () {
+          var root = document.documentElement;
+          var banner = document.querySelector('.recruiting-banner');
+          if (!banner) return;
+          var update = function () {
+            var h = banner.offsetHeight || 34;
+            root.style.setProperty('--banner-h', h + 'px');
+          };
+          update();
+          // Re-measure on resize (banner reflows from row → column at 620px)
+          var raf;
+          window.addEventListener('resize', function () {
+            cancelAnimationFrame(raf);
+            raf = requestAnimationFrame(update);
+          });
+          // Re-measure once webfont loads (Montserrat may shift line-height)
+          if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(update);
+          }
+        })();
+      </script>
+    )}
   </body>
 </html>
