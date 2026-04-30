@@ -35,16 +35,19 @@ const ribbonMessages = [
 ];
 const ribbonCycle = [...ribbonMessages, ...ribbonMessages]; // doubled for seamless scroll
 
+// All nav links point to v2-styled pages (no jumps back to v1 chrome).
+// Reviews + Charity moved to footer to free space in the main nav.
 const navItems = [
-  { href: '/index-v2.html', label: 'Salon', page: 'home' },
+  { href: '/salon-v2.html', label: 'Salon', page: 'salon' },
+  { href: BOOKING_URL, label: 'Booking', external: true },
+  { href: '/stylists-v2.html', label: 'Stylists' },
+  { href: '/services-v2.html', label: 'Services' },
   { href: '/our-work.html', label: 'Our Work', page: 'work' },
-  { href: '/reviews.html', label: 'Reviews', page: 'reviews' },
-  { href: '/stylists.html', label: 'Stylists' },
-  { href: '/services.html', label: 'Services' },
-  { href: '/microblading.html', label: 'Microblading' },
-  { href: '/charity.html', label: 'Charity' },
-  { href: '/contact.html', label: 'Contact' },
+  { href: '/microblading-v2.html', label: 'Microblading' },
+  { href: '/contact-v2.html', label: 'Contact' },
 ];
+
+const homeHref = '/index-v2.html';
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -87,11 +90,15 @@ const navItems = [
           </button>
           <nav class="header-nav">
             {navItems.map(item => (
-              <a href={item.href} class={item.page === active ? 'active' : ''}>{item.label}</a>
+              <a
+                href={item.href}
+                class={item.page === active ? 'active' : ''}
+                {...(item.external ? { target: '_blank', rel: 'noopener' } : {})}
+              >{item.label}</a>
             ))}
           </nav>
         </div>
-        <a class="header-logo" href="/index-v2.html" aria-label="Lau Hairdressing">
+        <a class="header-logo" href={homeHref} aria-label="Lau Hairdressing">
           <img src="/images/v2/lau-logo-black.png" alt="Lau Hairdressing" />
         </a>
         <div class="header-right">
@@ -113,7 +120,11 @@ const navItems = [
           <button class="mm-close" id="lau-mm-close" aria-label="Close menu">&times;</button>
         </div>
         <nav class="mobile-menu-nav">
-          {navItems.map(item => (<a href={item.href}>{item.label}</a>))}
+          {navItems.map(item => (
+            <a href={item.href} {...(item.external ? { target: '_blank', rel: 'noopener' } : {})}>{item.label}</a>
+          ))}
+          <a href="/reviews.html">Reviews</a>
+          <a href="/charity-v2.html">Charity</a>
         </nav>
         <div class="mobile-menu-foot">
           <a class="btn btn-primary" href={BOOKING_URL} target="_blank" rel="noopener" style="background: var(--gold); border: 1px solid var(--gold);">Book now</a>
@@ -160,14 +171,15 @@ const navItems = [
           <div>
             <h4>Navigation</h4>
             <ul>
-              <li><a href="/index-v2.html">Salon</a></li>
+              <li><a href={homeHref}>Salon</a></li>
               <li><a href={BOOKING_URL} target="_blank" rel="noopener">Booking</a></li>
-              <li><a href="/stylists.html">Stylists</a></li>
-              <li><a href="/services.html">Services</a></li>
+              <li><a href="/stylists-v2.html">Stylists</a></li>
+              <li><a href="/services-v2.html">Services</a></li>
               <li><a href="/our-work.html">Our Work</a></li>
+              <li><a href="/microblading-v2.html">Microblading</a></li>
+              <li><a href="/contact-v2.html">Contact</a></li>
               <li><a href="/reviews.html">Reviews</a></li>
-              <li><a href="/microblading.html">Microblading</a></li>
-              <li><a href="/charity.html">Charity</a></li>
+              <li><a href="/charity-v2.html">Charity</a></li>
             </ul>
           </div>
           <div>
