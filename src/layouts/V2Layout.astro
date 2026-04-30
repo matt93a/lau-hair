@@ -1,0 +1,242 @@
+---
+// V2 layout — uses the new design system (lau.css base + v2-sections.css).
+// Includes ribbon, header (sticky black), mobile menu, footer.
+// Existing v1 chrome (recruiting-banner, site-header, footer) is suppressed via body.v2.
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  active?: 'home' | 'work' | 'reviews' | string;
+}
+
+const BOOKING_URL = 'https://s-iq.co/BookingPortal/dist/?salonid=144ab19c-0032-4459-b79d-126853a7c144&tab=book';
+const PHONE_DISPLAY = '01622 670 557';
+const PHONE_TEL = 'tel:01622670557';
+const MAP_URL = 'https://maps.google.com/maps?q=Lau+Hairdressing+Ltd,+Gabriel%27s+Hill,+Maidstone,+United+Kingdom';
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = 'https://www.lau-hair.com/images/v2/damon-banner.png',
+  active = 'home',
+} = Astro.props as Props;
+
+const fullCanonical = canonical ?? `https://www.lau-hair.com${Astro.url.pathname.replace(/\.html$/, '.html')}`;
+
+// Ribbon messages — three rotating items, dot separators
+const ribbonMessages = [
+  'Celebrating 30 years of Lau Hairdressing — 1996 to 2026',
+  "We're hiring experienced stylists",
+  '30 years. Same passion. Same craft.',
+  'Bookings 24/7 via online booking or call 01622 670 557',
+];
+const ribbonCycle = [...ribbonMessages, ...ribbonMessages]; // doubled for seamless scroll
+
+// All nav links point to v2-styled pages (no jumps back to v1 chrome).
+// Reviews + Charity moved to footer to free space in the main nav.
+const navItems = [
+  { href: '/salon-v2.html', label: 'Salon', page: 'salon' },
+  { href: BOOKING_URL, label: 'Booking', external: true },
+  { href: '/stylists-v2.html', label: 'Stylists' },
+  { href: '/services-v2.html', label: 'Services' },
+  { href: '/our-work.html', label: 'Our Work', page: 'work' },
+  { href: '/microblading-v2.html', label: 'Microblading' },
+  { href: '/contact-v2.html', label: 'Contact' },
+];
+
+const homeHref = '/index-v2.html';
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={fullCanonical} />
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={fullCanonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="Lau Hairdressing" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@lauhairdressing" />
+
+    <link rel="stylesheet" href="/css/v2-base.css" />
+    <link rel="stylesheet" href="/css/v2-sections.css" />
+
+    <slot name="head" />
+  </head>
+  <body class="v2">
+    <div class="ribbon" data-mode="anniversary">
+      <div class="ribbon-track">
+        {ribbonCycle.map(m => (
+          <span><span class="dot"></span>{m}</span>
+        ))}
+      </div>
+    </div>
+
+    <header class="header">
+      <div class="container">
+        <div class="header-left">
+          <button class="header-burger" aria-label="Open menu" id="lau-burger">
+            <span></span><span></span><span></span>
+          </button>
+          <nav class="header-nav">
+            {navItems.map(item => (
+              <a
+                href={item.href}
+                class={item.page === active ? 'active' : ''}
+                {...(item.external ? { target: '_blank', rel: 'noopener' } : {})}
+              >{item.label}</a>
+            ))}
+          </nav>
+        </div>
+        <a class="header-logo" href={homeHref} aria-label="Lau Hairdressing">
+          <img src="/images/v2/lau-logo-black.png" alt="Lau Hairdressing" />
+        </a>
+        <div class="header-right">
+          <div class="header-socials">
+            <a href="https://x.com/lauhairdressing" aria-label="X" target="_blank" rel="noopener"><img src="/images/v2/social-x.png" alt="" /></a>
+            <a href="https://facebook.com/lausalon" aria-label="Facebook" target="_blank" rel="noopener"><img src="/images/v2/social-fb.png" alt="" /></a>
+            <a href="https://instagram.com/damon_at_lau" aria-label="Instagram" target="_blank" rel="noopener"><img src="/images/v2/social-insta.png" alt="" /></a>
+          </div>
+          <a class="header-phone" href={PHONE_TEL}>{PHONE_DISPLAY}</a>
+          <a class="btn btn-ghost btn-sm" href={BOOKING_URL} target="_blank" rel="noopener">Book now</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="mobile-menu" id="lau-mobile-menu" aria-hidden="true">
+      <div class="mobile-menu-inner">
+        <div class="mobile-menu-head">
+          <img src="/images/v2/lau-logo-black.png" alt="Lau" class="mm-logo" />
+          <button class="mm-close" id="lau-mm-close" aria-label="Close menu">&times;</button>
+        </div>
+        <nav class="mobile-menu-nav">
+          {navItems.map(item => (
+            <a href={item.href} {...(item.external ? { target: '_blank', rel: 'noopener' } : {})}>{item.label}</a>
+          ))}
+          <a href="/reviews.html">Reviews</a>
+          <a href="/charity-v2.html">Charity</a>
+        </nav>
+        <div class="mobile-menu-foot">
+          <a class="btn btn-primary" href={BOOKING_URL} target="_blank" rel="noopener" style="background: var(--gold); border: 1px solid var(--gold);">Book now</a>
+          <a class="header-phone" href={PHONE_TEL}>{PHONE_DISPLAY}</a>
+          <div class="header-socials">
+            <a href="https://x.com/lauhairdressing" aria-label="X" target="_blank" rel="noopener"><img src="/images/v2/social-x.png" alt="" /></a>
+            <a href="https://facebook.com/lausalon" aria-label="Facebook" target="_blank" rel="noopener"><img src="/images/v2/social-fb.png" alt="" /></a>
+            <a href="https://instagram.com/damon_at_lau" aria-label="Instagram" target="_blank" rel="noopener"><img src="/images/v2/social-insta.png" alt="" /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div class="footer-logo"><img src="/images/v2/lau-logo-black.png" alt="Lau" /></div>
+            <p style="font-size:13px; line-height:1.7;">
+              <strong style="display:block; margin-bottom:4px;">Lau Salon</strong>
+              13 Gabriel's Hill<br />
+              Maidstone<br />
+              Kent, ME15 6HL<br />
+              United Kingdom
+            </p>
+            <a class="btn btn-secondary btn-sm" href={MAP_URL} target="_blank" rel="noopener" style="margin-top:12px;">Find on a map</a>
+          </div>
+          <div>
+            <h4>Salon Hours</h4>
+            <dl class="footer-hours">
+              <dt>Mon</dt><dd>Closed</dd>
+              <dt>Tue</dt><dd>9:30am – 8pm</dd>
+              <dt>Wed</dt><dd>9am – 6pm</dd>
+              <dt>Thu</dt><dd>9am – 6pm</dd>
+              <dt>Fri</dt><dd>9:30am – 7pm</dd>
+              <dt>Sat</dt><dd>8am – 5pm</dd>
+              <dt>Sun</dt><dd>Closed</dd>
+            </dl>
+          </div>
+          <div>
+            <h4>Navigation</h4>
+            <ul>
+              <li><a href={homeHref}>Salon</a></li>
+              <li><a href={BOOKING_URL} target="_blank" rel="noopener">Booking</a></li>
+              <li><a href="/stylists-v2.html">Stylists</a></li>
+              <li><a href="/services-v2.html">Services</a></li>
+              <li><a href="/our-work.html">Our Work</a></li>
+              <li><a href="/microblading-v2.html">Microblading</a></li>
+              <li><a href="/contact-v2.html">Contact</a></li>
+              <li><a href="/reviews.html">Reviews</a></li>
+              <li><a href="/charity-v2.html">Charity</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Salon Guidelines</h4>
+            <p style="font-size:13px; line-height:1.7;">To avoid deposit loss we request a 48 hr cancellation notice.</p>
+            <p style="font-size:13px; line-height:1.7; color: var(--gold); font-weight:500;">Thanks x</p>
+          </div>
+          <div>
+            <h4>Salon Contact</h4>
+            <p style="font-size:13px; line-height:1.7;">
+              <strong style="display:block;">{PHONE_DISPLAY}</strong>
+              <span style="color: rgba(20,20,19,0.6);">to book</span>
+            </p>
+            <div class="footer-socials" style="margin-top:14px;">
+              <a href="https://x.com/lauhairdressing" target="_blank" rel="noopener"><img src="/images/v2/social-x.png" alt="X" /></a>
+              <a href="https://facebook.com/lausalon" target="_blank" rel="noopener"><img src="/images/v2/social-fb.png" alt="FB" /></a>
+              <a href="https://instagram.com/damon_at_lau" target="_blank" rel="noopener"><img src="/images/v2/social-insta.png" alt="IG" /></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 Lau Hairdressing — Celebrating 30 years, 1996–2026</span>
+          <span>Hairdresser Maidstone · Terms · Privacy &amp; Cookies</span>
+        </div>
+      </div>
+    </footer>
+
+    <script is:inline>
+      // Mobile menu toggle
+      (function () {
+        var burger = document.getElementById('lau-burger');
+        var menu = document.getElementById('lau-mobile-menu');
+        var close = document.getElementById('lau-mm-close');
+        if (burger && menu) {
+          burger.addEventListener('click', function () {
+            menu.classList.add('is-open');
+            menu.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+          });
+        }
+        if (close && menu) {
+          close.addEventListener('click', function () {
+            menu.classList.remove('is-open');
+            menu.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+          });
+        }
+        if (menu) {
+          menu.addEventListener('click', function (e) {
+            if (e.target === menu) {
+              menu.classList.remove('is-open');
+              menu.setAttribute('aria-hidden', 'true');
+              document.body.style.overflow = '';
+            }
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

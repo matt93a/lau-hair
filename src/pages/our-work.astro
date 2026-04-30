@@ -1,0 +1,175 @@
+---
+// /our-work page — filterable Instagram-driven gallery with lightbox.
+import V2Layout from '../layouts/V2Layout.astro';
+
+const WORKS = [
+  { img: '/images/v2/transform-3.png', service: 'balayage',           looks: ['blonde','long'],            caption: 'Lived-in blonde balayage',         stylist: 'Hannah' },
+  { img: '/images/v2/transform-2.png', service: 'balayage',           looks: ['brunette','long'],          caption: 'Caramel brunette dimension',       stylist: 'Damon' },
+  { img: '/images/v2/transform-1.png', service: 'balayage',           looks: ['blonde','long'],            caption: 'Bronde lift, hand-painted',        stylist: 'Olivia' },
+  { img: '/images/v2/transform-2.png', service: 'cuts',               looks: ['brunette','long','up-styles'], caption: 'Soft glam, dressed',           stylist: 'Sophie' },
+  { img: '/images/v2/transform-1.png', service: 'cuts',               looks: ['brunette','long'],          caption: 'Long layer cut',                   stylist: 'Tamlin' },
+  { img: '/images/v2/transform-3.png', service: 'cuts',               looks: ['short','brunette'],         caption: "Men's textured crop",              stylist: 'Jay' },
+  { img: '/images/v2/transform-2.png', service: 'cuts',               looks: ['short','blonde'],           caption: 'Skin fade with length on top',     stylist: 'Jay' },
+  { img: '/images/v2/transform-3.png', service: 'colour-correction',  looks: ['blonde','long'],            caption: 'Box-dye correction → fresh blonde', stylist: 'Damon' },
+  { img: '/images/v2/transform-2.png', service: 'cuts',               looks: ['brunette','long'],          caption: 'Glossy brunette finish',           stylist: 'Hannah' },
+  { img: '/images/v2/transform-3.png', service: 'perming',            looks: ['long','blonde'],            caption: 'Modern textured wave perm',        stylist: 'Olivia' },
+  { img: '/images/v2/transform-2.png', service: 'colour-correction',  looks: ['brunette','long'],          caption: 'Cool-tone correction',             stylist: 'Damon' },
+  { img: '/images/v2/transform-1.png', service: 'balayage',           looks: ['red','long'],               caption: 'Copper balayage',                  stylist: 'Hannah' },
+];
+
+const SERVICE_FILTERS = [
+  { id: 'all', label: 'All' },
+  { id: 'balayage', label: 'Balayage' },
+  { id: 'cuts', label: 'Cuts' },
+  { id: 'colour-correction', label: 'Colour Correction' },
+  { id: 'perming', label: 'Perming' },
+];
+const LOOK_FILTERS = [
+  { id: 'all', label: 'All' },
+  { id: 'blonde', label: 'Blonde' },
+  { id: 'brunette', label: 'Brunette' },
+  { id: 'red', label: 'Red' },
+  { id: 'short', label: 'Short' },
+  { id: 'long', label: 'Long' },
+  { id: 'up-styles', label: 'Up-styles' },
+];
+---
+<V2Layout
+  title="Our Work — Lau Hairdressing, Maidstone"
+  description="Recent work from the Lau team — balayage, cuts, colour correction and perming. Filter by service or look."
+  active="work"
+>
+  <section class="work-hero-section">
+    <div class="container">
+      <div class="eyebrow gold" style="margin-bottom: 14px;">Our Work</div>
+      <h1 class="work-hero-h1">The portfolio.</h1>
+      <p class="work-hero-lede">A curated selection of our recent work — colour, cuts, transformations and the occasional up-style. Filter by service or look. Tap any image to view larger.</p>
+    </div>
+  </section>
+
+  <section class="work-filters-section">
+    <div class="container">
+      <div class="filter-row" data-filter-group="service">
+        <div class="filter-row-label">Service</div>
+        <div class="filter-row-pills">
+          {SERVICE_FILTERS.map(f => (
+            <button class={`filter-pill ${f.id === 'all' ? 'is-active' : ''}`} data-filter-value={f.id}>{f.label}</button>
+          ))}
+        </div>
+      </div>
+      <div class="filter-row" data-filter-group="look">
+        <div class="filter-row-label">Look</div>
+        <div class="filter-row-pills">
+          {LOOK_FILTERS.map(f => (
+            <button class={`filter-pill ${f.id === 'all' ? 'is-active' : ''}`} data-filter-value={f.id}>{f.label}</button>
+          ))}
+        </div>
+      </div>
+      <div class="filter-counter">
+        Showing <strong id="work-count-current">{WORKS.length}</strong> of {WORKS.length}
+      </div>
+    </div>
+  </section>
+
+  <section class="work-grid-section">
+    <div class="container">
+      <div class="work-grid" id="work-grid">
+        {WORKS.map((w, i) => (
+          <button
+            class="work-tile"
+            data-service={w.service}
+            data-looks={w.looks.join(',')}
+            data-caption={w.caption}
+            data-stylist={w.stylist}
+            data-img={w.img}
+            data-index={i}
+          >
+            <img src={w.img} alt={w.caption} loading="lazy" />
+            <div class="work-tile-overlay">
+              <div class="work-tile-overlay-cap">{w.caption}</div>
+              <div class="work-tile-overlay-meta">By {w.stylist}</div>
+            </div>
+          </button>
+        ))}
+      </div>
+      <div class="work-empty" id="work-empty" style="display: none;">
+        No work matches that combination yet. Try widening your filters.
+      </div>
+    </div>
+  </section>
+
+  <div class="lightbox is-hidden" id="lightbox" role="dialog" aria-modal="true">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">×</button>
+    <div class="lightbox-inner">
+      <img src="" alt="" id="lightbox-img" />
+      <div class="lightbox-cap">
+        <div>
+          <div class="lightbox-cap-title" id="lightbox-cap"></div>
+          <div class="lightbox-cap-meta" id="lightbox-meta"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var state = { service: 'all', look: 'all' };
+      var tiles = document.querySelectorAll('.work-tile');
+      var totalCount = tiles.length;
+      var current = document.getElementById('work-count-current');
+      var empty = document.getElementById('work-empty');
+      var grid = document.getElementById('work-grid');
+
+      function applyFilters() {
+        var visible = 0;
+        tiles.forEach(function (t) {
+          var s = t.getAttribute('data-service');
+          var looks = (t.getAttribute('data-looks') || '').split(',');
+          var match = (state.service === 'all' || s === state.service) &&
+                      (state.look === 'all' || looks.indexOf(state.look) !== -1);
+          t.style.display = match ? '' : 'none';
+          if (match) visible++;
+        });
+        current.textContent = visible;
+        empty.style.display = visible === 0 ? '' : 'none';
+        grid.style.display = visible === 0 ? 'none' : 'grid';
+      }
+
+      document.querySelectorAll('.filter-row').forEach(function (row) {
+        var group = row.getAttribute('data-filter-group');
+        row.querySelectorAll('.filter-pill').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            row.querySelectorAll('.filter-pill').forEach(function (b) { b.classList.remove('is-active'); });
+            btn.classList.add('is-active');
+            state[group] = btn.getAttribute('data-filter-value');
+            applyFilters();
+          });
+        });
+      });
+
+      // Lightbox
+      var lb = document.getElementById('lightbox');
+      var lbImg = document.getElementById('lightbox-img');
+      var lbCap = document.getElementById('lightbox-cap');
+      var lbMeta = document.getElementById('lightbox-meta');
+      var lbClose = document.getElementById('lightbox-close');
+
+      function openLightbox(t) {
+        lbImg.src = t.getAttribute('data-img');
+        lbImg.alt = t.getAttribute('data-caption');
+        lbCap.textContent = t.getAttribute('data-caption');
+        lbMeta.textContent = 'By ' + t.getAttribute('data-stylist') + ' · ' + t.getAttribute('data-service');
+        lb.classList.remove('is-hidden');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeLightbox() {
+        lb.classList.add('is-hidden');
+        document.body.style.overflow = '';
+      }
+      tiles.forEach(function (t) { t.addEventListener('click', function () { openLightbox(t); }); });
+      lbClose.addEventListener('click', closeLightbox);
+      lb.addEventListener('click', function (e) { if (e.target === lb) closeLightbox(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+    })();
+  </script>
+</V2Layout>

@@ -1,0 +1,25 @@
+---
+// V2 home page — final implementation per Claude Design handoff.
+
+import V2Layout from '../layouts/V2Layout.astro';
+import HeroSlider from '../components/v2/HeroSlider.astro';
+import ServiceCards from '../components/v2/ServiceCards.astro';
+import AnniversaryPanel from '../components/v2/AnniversaryPanel.astro';
+import ClientTransformations from '../components/v2/ClientTransformations.astro';
+import TeamGrid from '../components/v2/TeamGrid.astro';
+import ReviewsBlock from '../components/v2/ReviewsBlock.astro';
+import InstagramStrip from '../components/v2/InstagramStrip.astro';
+---
+<V2Layout
+  title="Lau Hairdressing — Hair Salon in Maidstone, Kent | 30 Years"
+  description="Independent hair salon in Maidstone, celebrating 30 years. Balayage, colour correction, cuts and perming — built around you."
+  active="home"
+>
+  <HeroSlider />
+  <ServiceCards />
+  <AnniversaryPanel />
+  <ClientTransformations />
+  <TeamGrid />
+  <ReviewsBlock />
+  <InstagramStrip />
+</V2Layout>

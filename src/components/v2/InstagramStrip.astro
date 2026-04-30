@@ -1,0 +1,34 @@
+---
+// Instagram strip near footer — 8 hand-picked tiles.
+// Will be replaced by Google Sheet feed (see GOOGLE-SHEET-SPEC.md).
+
+const TILES = [
+  '/images/v2/transform-1.png',
+  '/images/v2/transform-2.png',
+  '/images/v2/transform-3.png',
+  '/images/v2/transform-1.png',
+  '/images/v2/transform-2.png',
+  '/images/v2/transform-3.png',
+  '/images/v2/transform-1.png',
+  '/images/v2/transform-2.png',
+];
+const HANDLE = '@damon_at_lau';
+---
+<section class="ig-strip-section">
+  <div class="container">
+    <div class="ig-strip-head">
+      <div>
+        <div class="eyebrow gold ig-strip-eyebrow">Follow us</div>
+        <h3>{HANDLE}</h3>
+      </div>
+      <a class="btn btn-secondary btn-sm" href={`https://instagram.com/${HANDLE.replace('@','')}`} target="_blank" rel="noopener">View profile →</a>
+    </div>
+    <div class="ig-strip">
+      {TILES.map((src, i) => (
+        <a href={`https://instagram.com/${HANDLE.replace('@','')}`} target="_blank" rel="noopener">
+          <img src={src} alt={`Lau Hairdressing Instagram tile ${i+1}`} loading="lazy" />
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

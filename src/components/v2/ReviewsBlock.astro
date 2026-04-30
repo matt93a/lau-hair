@@ -1,0 +1,28 @@
+---
+// Home reviews strip — 3 cards + see-all link.
+import ReviewCard from './ReviewCard.astro';
+import data from '../../data/reviews.json';
+
+const cards = (data.reviews || []).slice(0, 3);
+const avg = (data.rating || 4.9).toFixed(1);
+const total = data.user_ratings_total || cards.length;
+---
+<section class="section reviews-strip-section">
+  <div class="container">
+    <div class="section-title">
+      <div>
+        <div class="eyebrow gold" style="margin-bottom: 14px;">What our clients say</div>
+        <h2>{avg} ★ from {total}+ reviews.</h2>
+      </div>
+      <p class="lede">Real, verified reviews from Google and Facebook. The good, the great, and the occasional parking gripe.</p>
+    </div>
+    <div class="reviews-strip-grid">
+      {cards.map(r => (
+        <ReviewCard rating={r.rating} source={r.source} name={r.name} date={r.date} text={r.text} truncate={true} />
+      ))}
+    </div>
+    <div class="reviews-strip-cta">
+      <a class="btn btn-secondary" href="/reviews.html">See all reviews →</a>
+    </div>
+  </div>
+</section>

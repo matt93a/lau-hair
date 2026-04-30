@@ -1,0 +1,19 @@
+{
+  "_comment": "Placeholder reviews from Claude Design handoff. Replace with live Google Places API data once GOOGLE_PLACES_KEY is wired (see v2-design-brief/GOOGLE-REVIEWS-API-SETUP.md).",
+  "rating": 4.9,
+  "user_ratings_total": 280,
+  "reviews": [
+    { "rating": 5, "source": "google",   "name": "Sarah J.",    "date": "March 2026",    "text": "Damon and the team have looked after my hair for over a decade. Honest advice, brilliant cuts, and the only place in Maidstone I'd ever sit down. Worth every penny." },
+    { "rating": 5, "source": "google",   "name": "Lucy R.",     "date": "March 2026",    "text": "Hannah did the most beautiful balayage for my wedding. Lived-in, soft, exactly what I asked for. Whole salon felt calm and considered — proper professionals." },
+    { "rating": 5, "source": "facebook", "name": "Mark T.",     "date": "February 2026", "text": "Been getting my hair cut by Damon since the place opened. 30 years on and the standard hasn't dropped once. Same chair, same stories, sharper than ever." },
+    { "rating": 5, "source": "google",   "name": "Priya S.",    "date": "February 2026", "text": "Came in for a colour correction after a holiday disaster. They took the time to actually look at my hair before doing anything. Walked out feeling like myself again." },
+    { "rating": 5, "source": "google",   "name": "Eleanor M.",  "date": "January 2026",  "text": "Tamlin's microblading is genuinely incredible. Natural, symmetrical, and I've stopped reaching for a brow pencil entirely. Bookings are tight for a reason." },
+    { "rating": 5, "source": "facebook", "name": "Joe H.",      "date": "January 2026",  "text": "Finally found a barber-quality men's cut without the barbershop noise. Quiet, precise, half an hour, in and out. Will be back monthly." },
+    { "rating": 4, "source": "google",   "name": "Amelia W.",   "date": "December 2025", "text": "Love my colour, the salon is gorgeous and the team are so welcoming. Took a star off only because parking on Gabriel's Hill is its own adventure!" },
+    { "rating": 5, "source": "google",   "name": "Charlotte F.","date": "December 2025", "text": "I've followed Olivia from her last salon. She's a balayage genius and the rest of the Lau team are just as good. The best in Kent, full stop." },
+    { "rating": 5, "source": "google",   "name": "Thomas K.",   "date": "November 2025", "text": "Took my 14 year old in for his first 'proper' haircut. Jay was patient, friendly, and the cut was excellent. He's already asked when we're going back." },
+    { "rating": 5, "source": "facebook", "name": "Karen B.",    "date": "November 2025", "text": "Honest, talented, kind. They told me NOT to go platinum because my hair wouldn't cope, and suggested an alternative I love. Integrity in a hair salon — rare." },
+    { "rating": 5, "source": "google",   "name": "Rachel D.",   "date": "October 2025",  "text": "Sophie is wonderful. She listens, she's gentle, and she gives proper advice on home care. My hair has never been in better condition." },
+    { "rating": 5, "source": "google",   "name": "Ben P.",      "date": "October 2025",  "text": "Stag-do groom emergency cut, fitted me in within 24 hours. Top job, top people, top recommendation." }
+  ]
+}

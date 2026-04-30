@@ -1,0 +1,45 @@
+---
+// Coming-soon placeholder used by v2 pages that haven't had their final
+// design/content applied yet. Keeps users in the v2 chrome.
+export interface Props {
+  pageTitle: string;        // e.g. "Salon"
+  eyebrow?: string;         // small gold label
+  lede?: string;            // 1-2 sentences
+  v1Href?: string;          // optional link to the existing v1 page
+  v1Label?: string;         // CTA label for the v1 link
+}
+const {
+  pageTitle,
+  eyebrow = 'Coming soon',
+  lede = "We're refreshing this page as part of Lau's 30th anniversary site update. The redesign lands soon.",
+  v1Href,
+  v1Label = 'View the current page',
+} = Astro.props as Props;
+---
+<section style="padding: 96px 0 48px; background: var(--grey-bg);">
+  <div class="container" style="max-width: 720px; text-align: center;">
+    <div class="eyebrow gold" style="margin-bottom: 18px;">{eyebrow}</div>
+    <h1 style="font-size: 64px; line-height: 1; font-weight: 200; letter-spacing: -0.01em; margin-bottom: 24px;">{pageTitle}</h1>
+    <p style="font-size: 17px; line-height: 1.6; color: rgba(20,20,19,0.7); margin: 0 auto 32px; max-width: 540px;">{lede}</p>
+    <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+      <a href="/index-v2.html" class="btn btn-primary">Back to home</a>
+      {v1Href && (
+        <a href={v1Href} class="btn btn-secondary">{v1Label}</a>
+      )}
+    </div>
+  </div>
+</section>
+
+<section class="anniv-quiet">
+  <div class="container">
+    <div class="anniv-quiet-grid">
+      <div class="anniv-quiet-ribbon">
+        <span class="anniv-quiet-gold">EST. 1996 — 2026</span>
+        <span class="anniv-quiet-sep">·</span>
+        <span class="anniv-quiet-years">Thirty years of Lau Hairdressing</span>
+      </div>
+      <p class="anniv-quiet-body">In the meantime, browse our work, read recent reviews, or book online — the salon is open as normal.</p>
+      <a href="/our-work.html" class="anniv-quiet-link">View our work →</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,33 @@
+---
+// Single review card — used by ReviewsBlock (home strip) and reviews.astro (page).
+export interface Props {
+  rating: number;
+  source: 'google' | 'facebook';
+  name: string;
+  date: string;
+  text: string;
+  truncate?: boolean;
+}
+const { rating, source, name, date, text, truncate = false } = Astro.props as Props;
+const display = truncate && text.length > 200 ? text.slice(0, 200) + '...' : text;
+---
+<article class="review-card">
+  <div class="review-card-head">
+    <div class="review-stars">
+      {[1,2,3,4,5].map(n => (
+        <svg width="14" height="14" viewBox="0 0 14 14" fill={n <= rating ? 'currentColor' : 'none'} stroke="currentColor" stroke-width="1">
+          <path d="M7 1l1.8 3.7 4.2.6-3 2.9.7 4.2L7 10.5 3.3 12.4 4 8.2 1 5.3l4.2-.6L7 1z"/>
+        </svg>
+      ))}
+    </div>
+    <div class={`review-source review-source--${source}`}>
+      <span class="review-source-dot"></span>
+      {source}
+    </div>
+  </div>
+  <p class="review-quote">"{display}"</p>
+  <div class="review-meta">
+    <strong>{name}</strong>
+    <span> · {date}</span>
+  </div>
+</article>

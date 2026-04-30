@@ -1,0 +1,56 @@
+---
+// /reviews page — masonry grid, no filters, leave-a-review CTA.
+import V2Layout from '../layouts/V2Layout.astro';
+import ReviewCard from '../components/v2/ReviewCard.astro';
+import data from '../data/reviews.json';
+
+const reviews = data.reviews || [];
+const avg = (data.rating || 4.9).toFixed(1);
+const total = data.user_ratings_total || reviews.length;
+const LEAVE_REVIEW_URL = 'https://search.google.com/local/writereview?placeid=cid:11278767179397682494';
+---
+<V2Layout
+  title="Reviews — Lau Hairdressing, Maidstone"
+  description="Real reviews from clients of Lau Hairdressing in Maidstone. Verified Google and Facebook ratings."
+  active="reviews"
+>
+  <section class="reviews-page-hero">
+    <div class="container">
+      <div class="reviews-page-hero-grid">
+        <div>
+          <div class="eyebrow gold" style="margin-bottom: 14px;">Reviews</div>
+          <h1>What people say.</h1>
+          <p style="max-width: 500px; color: rgba(20,20,19,0.7); font-size: 15px; margin: 0;">
+            Verified reviews from Google and Facebook, sorted newest first. Honest reflections of three decades on Gabriel's Hill.
+          </p>
+        </div>
+        <div class="reviews-page-hero-rhs">
+          <div class="reviews-page-hero-rhs-row">
+            <span class="reviews-page-avg">{avg}</span>
+            <div>
+              <div class="review-stars">
+                {[1,2,3,4,5].map(() => (
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.8 3.7 4.2.6-3 2.9.7 4.2L7 10.5 3.3 12.4 4 8.2 1 5.3l4.2-.6L7 1z"/></svg>
+                ))}
+              </div>
+              <div class="reviews-page-avg-meta">From {total}+ reviews</div>
+            </div>
+          </div>
+          <a class="btn btn-primary btn-sm" href={LEAVE_REVIEW_URL} target="_blank" rel="noopener" style="margin-top: 8px;">Leave a review →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews-page-grid-section">
+    <div class="container">
+      <div class="reviews-masonry">
+        {reviews.map(r => (
+          <div class="reviews-masonry-item">
+            <ReviewCard rating={r.rating} source={r.source} name={r.name} date={r.date} text={r.text} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</V2Layout>

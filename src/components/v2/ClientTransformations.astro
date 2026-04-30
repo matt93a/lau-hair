@@ -1,0 +1,48 @@
+---
+// Client transformations — side-by-side BEFORE/AFTER pairs.
+// Drag-reveal alternative was specced; using side-by-side per Matt's preference TBC.
+
+const TRANSFORMS = [
+  { before: '/images/v2/transform-1.png', after: '/images/v2/transform-3.png', label: 'Blonde Balayage',     stylist: 'Tamlin' },
+  { before: '/images/v2/transform-3.png', after: '/images/v2/transform-2.png', label: 'Brunette dimension',  stylist: 'Damon' },
+  { before: '/images/v2/transform-2.png', after: '/images/v2/transform-1.png', label: 'Bronde lift',         stylist: 'Hannah' },
+  { before: '/images/v2/transform-1.png', after: '/images/v2/transform-3.png', label: 'Colour correction',   stylist: 'Damon' },
+];
+---
+<section class="section transform-section">
+  <div class="container">
+    <div class="section-title">
+      <div>
+        <div class="eyebrow gold" style="margin-bottom: 14px;">Real Client Transformations</div>
+        <h2>Before. After. The work.</h2>
+      </div>
+      <p class="lede">No filters. Salon lighting, real clients, hand-painted colour. Drag the slider — or scroll through the pairs.</p>
+    </div>
+
+    <div class="transform-grid">
+      {TRANSFORMS.map(t => (
+        <div class="transform-card">
+          <div class="transform-pair">
+            <div>
+              <img src={t.before} alt={`${t.label} – before`} loading="lazy" />
+              <div class="transform-tag">BEFORE</div>
+            </div>
+            <div>
+              <img src={t.after} alt={`${t.label} – after`} loading="lazy" />
+              <div class="transform-tag transform-tag-after">AFTER</div>
+            </div>
+            <div class="transform-divider"></div>
+          </div>
+          <div class="transform-caption">
+            <div style="font-size: 14px; font-weight: 500;">{t.label}</div>
+            <div class="transform-caption-meta">By {t.stylist}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="transform-cta">
+      <a class="btn btn-secondary" href="/our-work.html">See all our work →</a>
+    </div>
+  </div>
+</section>
